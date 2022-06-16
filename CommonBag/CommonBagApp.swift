@@ -6,12 +6,13 @@
 //
 
 import SwiftUI
+import Stinsen
 
 @main
 struct CommonBagApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            AppCoordinator().view()
         }
     }
 }

@@ -8,17 +8,30 @@
 
 /* Begin PBXBuildFile section */
 		4B8F504D285BD055003D4CDF /* CommonBagApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8F504C285BD055003D4CDF /* CommonBagApp.swift */; };
-		4B8F504F285BD055003D4CDF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8F504E285BD055003D4CDF /* ContentView.swift */; };
 		4B8F5051285BD057003D4CDF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B8F5050285BD057003D4CDF /* Assets.xcassets */; };
 		4B8F5054285BD057003D4CDF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B8F5053285BD057003D4CDF /* Preview Assets.xcassets */; };
+		4B8F505C285BD1A5003D4CDF /* Stinsen in Frameworks */ = {isa = PBXBuildFile; productRef = 4B8F505B285BD1A5003D4CDF /* Stinsen */; };
+		4B8F505F285BD1E3003D4CDF /* ProductListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8F505E285BD1E3003D4CDF /* ProductListView.swift */; };
+		4B8F5061285BD1FC003D4CDF /* ProductListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8F5060285BD1FC003D4CDF /* ProductListViewModel.swift */; };
+		4B8F5063285BD208003D4CDF /* ProductListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8F5062285BD208003D4CDF /* ProductListCoordinator.swift */; };
+		4B8F5065285BD9BF003D4CDF /* ProductModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8F5064285BD9BF003D4CDF /* ProductModel.swift */; };
+		4B8F5067285BE53B003D4CDF /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8F5066285BE53B003D4CDF /* AppCoordinator.swift */; };
+		4B8F506B285BE6B3003D4CDF /* ProductRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8F506A285BE6B3003D4CDF /* ProductRow.swift */; };
+		4B8F506E285BE6E6003D4CDF /* AddActionModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8F506D285BE6E6003D4CDF /* AddActionModifier.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		4B8F5049285BD055003D4CDF /* CommonBag.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CommonBag.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B8F504C285BD055003D4CDF /* CommonBagApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonBagApp.swift; sourceTree = "<group>"; };
-		4B8F504E285BD055003D4CDF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		4B8F5050285BD057003D4CDF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4B8F5053285BD057003D4CDF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		4B8F505E285BD1E3003D4CDF /* ProductListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListView.swift; sourceTree = "<group>"; };
+		4B8F5060285BD1FC003D4CDF /* ProductListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListViewModel.swift; sourceTree = "<group>"; };
+		4B8F5062285BD208003D4CDF /* ProductListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListCoordinator.swift; sourceTree = "<group>"; };
+		4B8F5064285BD9BF003D4CDF /* ProductModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductModel.swift; sourceTree = "<group>"; };
+		4B8F5066285BE53B003D4CDF /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		4B8F506A285BE6B3003D4CDF /* ProductRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductRow.swift; sourceTree = "<group>"; };
+		4B8F506D285BE6E6003D4CDF /* AddActionModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddActionModifier.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -26,6 +39,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4B8F505C285BD1A5003D4CDF /* Stinsen in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -51,8 +65,10 @@
 		4B8F504B285BD055003D4CDF /* CommonBag */ = {
 			isa = PBXGroup;
 			children = (
+				4B8F5068285BE691003D4CDF /* Common */,
+				4B8F505D285BD1BE003D4CDF /* ProductList */,
 				4B8F504C285BD055003D4CDF /* CommonBagApp.swift */,
-				4B8F504E285BD055003D4CDF /* ContentView.swift */,
+				4B8F5066285BE53B003D4CDF /* AppCoordinator.swift */,
 				4B8F5050285BD057003D4CDF /* Assets.xcassets */,
 				4B8F5052285BD057003D4CDF /* Preview Content */,
 			);
@@ -65,6 +81,42 @@
 				4B8F5053285BD057003D4CDF /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		4B8F505D285BD1BE003D4CDF /* ProductList */ = {
+			isa = PBXGroup;
+			children = (
+				4B8F5069285BE6A2003D4CDF /* Components */,
+				4B8F505E285BD1E3003D4CDF /* ProductListView.swift */,
+				4B8F5060285BD1FC003D4CDF /* ProductListViewModel.swift */,
+				4B8F5062285BD208003D4CDF /* ProductListCoordinator.swift */,
+				4B8F5064285BD9BF003D4CDF /* ProductModel.swift */,
+			);
+			path = ProductList;
+			sourceTree = "<group>";
+		};
+		4B8F5068285BE691003D4CDF /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				4B8F506C285BE6D7003D4CDF /* Modifiers */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		4B8F5069285BE6A2003D4CDF /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				4B8F506A285BE6B3003D4CDF /* ProductRow.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		4B8F506C285BE6D7003D4CDF /* Modifiers */ = {
+			isa = PBXGroup;
+			children = (
+				4B8F506D285BE6E6003D4CDF /* AddActionModifier.swift */,
+			);
+			path = Modifiers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -83,6 +135,9 @@
 			dependencies = (
 			);
 			name = CommonBag;
+			packageProductDependencies = (
+				4B8F505B285BD1A5003D4CDF /* Stinsen */,
+			);
 			productName = CommonBag;
 			productReference = 4B8F5049285BD055003D4CDF /* CommonBag.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +166,9 @@
 				Base,
 			);
 			mainGroup = 4B8F5040285BD055003D4CDF;
+			packageReferences = (
+				4B8F505A285BD1A5003D4CDF /* XCRemoteSwiftPackageReference "stinsen" */,
+			);
 			productRefGroup = 4B8F504A285BD055003D4CDF /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -137,7 +195,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4B8F504F285BD055003D4CDF /* ContentView.swift in Sources */,
+				4B8F506E285BE6E6003D4CDF /* AddActionModifier.swift in Sources */,
+				4B8F5067285BE53B003D4CDF /* AppCoordinator.swift in Sources */,
+				4B8F505F285BD1E3003D4CDF /* ProductListView.swift in Sources */,
+				4B8F5065285BD9BF003D4CDF /* ProductModel.swift in Sources */,
+				4B8F5061285BD1FC003D4CDF /* ProductListViewModel.swift in Sources */,
+				4B8F506B285BE6B3003D4CDF /* ProductRow.swift in Sources */,
+				4B8F5063285BD208003D4CDF /* ProductListCoordinator.swift in Sources */,
 				4B8F504D285BD055003D4CDF /* CommonBagApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -341,6 +405,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		4B8F505A285BD1A5003D4CDF /* XCRemoteSwiftPackageReference "stinsen" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/rundfunk47/stinsen";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		4B8F505B285BD1A5003D4CDF /* Stinsen */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4B8F505A285BD1A5003D4CDF /* XCRemoteSwiftPackageReference "stinsen" */;
+			productName = Stinsen;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 4B8F5041285BD055003D4CDF /* Project object */;
 }
