@@ -53,4 +53,8 @@ final class ProductListViewModel: ObservableObject {
     func dismiss() {
         router?.dismissCoordinator(nil)
     }
+    
+    func showAddProducts() {
+        router?.route(to: \.add, upcomingProducts)
+    }
 }

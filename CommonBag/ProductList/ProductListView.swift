@@ -28,6 +28,9 @@ struct ProductListView: View {
             )
             .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
             .padding()
+            .addAction {
+                viewModel.showAddProducts()
+            }
             
             List {
                 // Предстоящие покупки

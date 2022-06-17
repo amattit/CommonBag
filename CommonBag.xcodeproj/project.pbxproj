@@ -23,6 +23,10 @@
 		4B8F5075285C950D003D4CDF /* MyListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8F5074285C950D003D4CDF /* MyListViewModel.swift */; };
 		4B8F5077285C958A003D4CDF /* MyListsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8F5076285C958A003D4CDF /* MyListsCoordinator.swift */; };
 		4B8F507A285CA215003D4CDF /* MyListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8F5079285CA215003D4CDF /* MyListRow.swift */; };
+		4B8F507D285CA3B9003D4CDF /* AddProductCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8F507C285CA3B9003D4CDF /* AddProductCoordinator.swift */; };
+		4B8F507F285CA3C3003D4CDF /* AddProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8F507E285CA3C3003D4CDF /* AddProductView.swift */; };
+		4B8F5081285CA3D4003D4CDF /* AddProductViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8F5080285CA3D4003D4CDF /* AddProductViewModel.swift */; };
+		4B8F5084285CA82B003D4CDF /* AddedProductRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8F5083285CA82B003D4CDF /* AddedProductRow.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +46,10 @@
 		4B8F5074285C950D003D4CDF /* MyListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyListViewModel.swift; sourceTree = "<group>"; };
 		4B8F5076285C958A003D4CDF /* MyListsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyListsCoordinator.swift; sourceTree = "<group>"; };
 		4B8F5079285CA215003D4CDF /* MyListRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyListRow.swift; sourceTree = "<group>"; };
+		4B8F507C285CA3B9003D4CDF /* AddProductCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProductCoordinator.swift; sourceTree = "<group>"; };
+		4B8F507E285CA3C3003D4CDF /* AddProductView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProductView.swift; sourceTree = "<group>"; };
+		4B8F5080285CA3D4003D4CDF /* AddProductViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProductViewModel.swift; sourceTree = "<group>"; };
+		4B8F5083285CA82B003D4CDF /* AddedProductRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddedProductRow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +83,7 @@
 		4B8F504B285BD055003D4CDF /* CommonBag */ = {
 			isa = PBXGroup;
 			children = (
+				4B8F507B285CA3A3003D4CDF /* AddProduct */,
 				4B8F506F285C93FF003D4CDF /* MyLists */,
 				4B8F5068285BE691003D4CDF /* Common */,
 				4B8F505D285BD1BE003D4CDF /* ProductList */,
@@ -146,6 +155,25 @@
 			isa = PBXGroup;
 			children = (
 				4B8F5079285CA215003D4CDF /* MyListRow.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		4B8F507B285CA3A3003D4CDF /* AddProduct */ = {
+			isa = PBXGroup;
+			children = (
+				4B8F5082285CA7FA003D4CDF /* Components */,
+				4B8F507C285CA3B9003D4CDF /* AddProductCoordinator.swift */,
+				4B8F507E285CA3C3003D4CDF /* AddProductView.swift */,
+				4B8F5080285CA3D4003D4CDF /* AddProductViewModel.swift */,
+			);
+			path = AddProduct;
+			sourceTree = "<group>";
+		};
+		4B8F5082285CA7FA003D4CDF /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				4B8F5083285CA82B003D4CDF /* AddedProductRow.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -228,12 +256,16 @@
 			files = (
 				4B8F5077285C958A003D4CDF /* MyListsCoordinator.swift in Sources */,
 				4B8F506E285BE6E6003D4CDF /* AddActionModifier.swift in Sources */,
+				4B8F5084285CA82B003D4CDF /* AddedProductRow.swift in Sources */,
+				4B8F507D285CA3B9003D4CDF /* AddProductCoordinator.swift in Sources */,
 				4B8F5067285BE53B003D4CDF /* AppCoordinator.swift in Sources */,
 				4B8F5071285C9410003D4CDF /* MyListsView.swift in Sources */,
 				4B8F505F285BD1E3003D4CDF /* ProductListView.swift in Sources */,
 				4B8F5065285BD9BF003D4CDF /* ProductModel.swift in Sources */,
 				4B8F5075285C950D003D4CDF /* MyListViewModel.swift in Sources */,
 				4B8F5061285BD1FC003D4CDF /* ProductListViewModel.swift in Sources */,
+				4B8F507F285CA3C3003D4CDF /* AddProductView.swift in Sources */,
+				4B8F5081285CA3D4003D4CDF /* AddProductViewModel.swift in Sources */,
 				4B8F506B285BE6B3003D4CDF /* ProductRow.swift in Sources */,
 				4B8F5063285BD208003D4CDF /* ProductListCoordinator.swift in Sources */,
 				4B8F507A285CA215003D4CDF /* MyListRow.swift in Sources */,
