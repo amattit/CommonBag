@@ -12,8 +12,12 @@ final class ProductListCoordinator: NavigationCoordinatable {
     var stack = NavigationStack(initial: \ProductListCoordinator.start)
     
     @Root var start = makeStart
+    let list: ListModel
+    init(list: ListModel) {
+        self.list = list
+    }
     
     @ViewBuilder func makeStart() -> some View {
-        ProductListView(viewModel: .init())
+        ProductListView(viewModel: .init(list: list))
     }
 }

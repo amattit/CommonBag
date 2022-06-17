@@ -6,12 +6,15 @@
 //
 
 import Foundation
+import Stinsen
 
 final class ProductListViewModel: ObservableObject {
+    @RouterObject var router: NavigationRouter<ProductListCoordinator>?
     @Published var upcomingProducts: [ProductModel] = []
     @Published var madeProducts: [ProductModel] = []
-    
-    init() {
+    let list: ListModel
+    init(list: ListModel) {
+        self.list = list
         upcomingProducts = [
             .init(id: UUID(), title: "Продукт", count: "2"),
             .init(id: UUID(), title: "Хлеб", count: ""),
@@ -45,5 +48,9 @@ final class ProductListViewModel: ObservableObject {
         madeProducts.removeAll {
             $0 == product
         }
+    }
+    
+    func dismiss() {
+        router?.dismissCoordinator(nil)
     }
 }

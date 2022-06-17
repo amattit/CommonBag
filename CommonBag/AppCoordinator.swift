@@ -13,7 +13,7 @@ final class AppCoordinator: NavigationCoordinatable {
     
     @Root var start = makeStart
     
-    func makeStart() -> NavigationViewCoordinator<ProductListCoordinator> {
-        NavigationViewCoordinator(ProductListCoordinator())
+    func makeStart() -> NavigationViewCoordinator<MyListsCoordinator> {
+        NavigationViewCoordinator(MyListsCoordinator())
     }
 }

@@ -88,10 +88,11 @@ struct ProductListView: View {
             }
             .listStyle(.plain)
         }
-        .navigationBarTitle("Список покупок")
+        .navigationBarTitle(viewModel.list.title)
+        .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
-                Button(action: {}) {
+                Button(action: viewModel.dismiss) {
                     Image(systemName: "1.square")
                 }
             }
@@ -114,11 +115,11 @@ struct ProductListView_Preview: PreviewProvider {
     static var previews: some View {
         Group {
             NavigationView {
-                ProductListView(viewModel: .init())
+                ProductListView(viewModel: .init(list: .mock))
             }
             
             NavigationView {
-                ProductListView(viewModel: .init())
+                ProductListView(viewModel: .init(list: .mockEmpty))
             }
             .environment(\.colorScheme, .dark)
         }
