@@ -7,7 +7,7 @@
 
 import Foundation
 import Stinsen
-
+// TODO: Добавить состояние экрана для переключения типа клавиатуры, когда нажимаешь : количество
 final class AddProductViewModel: ObservableObject {
     @RouterObject var router: NavigationRouter<AddProductCoordinator>?
     @Published var input: String = ""
