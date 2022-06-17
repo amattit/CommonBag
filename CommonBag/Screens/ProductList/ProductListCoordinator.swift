@@ -15,15 +15,17 @@ final class ProductListCoordinator: NavigationCoordinatable {
     @Route(.fullScreen) var add = makeAddProduct
     
     let list: ListModel
-    init(list: ListModel) {
+    let service: ProductListService
+    init(list: ListModel, service: ProductListService) {
+        self.service = service
         self.list = list
     }
     
     @ViewBuilder func makeStart() -> some View {
-        ProductListView(viewModel: .init(list: list))
+        ProductListView(viewModel: .init(list: list, service: service))
     }
     
     func makeAddProduct(upcomingProducts: [ProductModel]) -> AddProductCoordinator {
-        AddProductCoordinator(upcomingProducts: upcomingProducts)
+        AddProductCoordinator(list: list, upcomingProducts: upcomingProducts, service: service)
     }
 }

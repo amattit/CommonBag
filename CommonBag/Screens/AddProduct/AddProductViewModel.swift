@@ -6,14 +6,20 @@
 //
 
 import Foundation
+import Stinsen
 
 final class AddProductViewModel: ObservableObject {
+    @RouterObject var router: NavigationRouter<AddProductCoordinator>?
     @Published var input: String = ""
     
     @Published var upcomingProducts: [ProductModel]
+    let list: ListModel
+    let service: ProductListService
     
-    init(upcomingProducts: [ProductModel]) {
+    init(service: ProductListService, list: ListModel, upcomingProducts: [ProductModel]) {
         self.upcomingProducts = upcomingProducts
+        self.list = list
+        self.service = service
     }
     
     func handleInput() {
@@ -33,6 +39,17 @@ final class AddProductViewModel: ObservableObject {
                 return nil
             }
         self.upcomingProducts.append(contentsOf: items)
+        self.service.addProduct(to: list, products: items)
+        self.input = ""
         print(items)
+    }
+    
+    func addCountDivider() {
+        input += ": "
+    }
+    
+    func dismiss() {
+        handleInput()
+        router?.dismissCoordinator(nil)
     }
 }

@@ -7,23 +7,34 @@
 
 import Foundation
 import Stinsen
+import Combine
 
 final class ProductListViewModel: ObservableObject {
     @RouterObject var router: NavigationRouter<ProductListCoordinator>?
     @Published var upcomingProducts: [ProductModel] = []
     @Published var madeProducts: [ProductModel] = []
     let list: ListModel
-    init(list: ListModel) {
+    
+    let service: ProductListService
+    
+    var disposables = Set<AnyCancellable>()
+    
+    var backButtonName: String {
+        "\(service.getListCount()).square"
+    }
+    
+    init(list: ListModel, service: ProductListService) {
+        self.service = service
         self.list = list
-        upcomingProducts = [
-            .init(id: UUID(), title: "Продукт", count: "2"),
-            .init(id: UUID(), title: "Хлеб", count: ""),
-        ]
-        
-        madeProducts = [
-            .init(id: UUID(), title: "Сыр плавленный", count: "1"),
-            .init(id: UUID(), title: "Агуша", count: "6"),
-        ]
+        bind()
+        service.getProducts(for: list)
+    }
+    
+    func bind() {
+        service.productsPublisher.sink { products in
+            self.upcomingProducts = products
+        }
+        .store(in: &disposables)
     }
     
     func setMade(_ product: ProductModel) {

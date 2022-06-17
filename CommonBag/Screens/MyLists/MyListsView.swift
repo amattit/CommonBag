@@ -47,11 +47,11 @@ struct MyListsView_Preview: PreviewProvider {
     static var previews: some View {
         Group {
             NavigationView {
-                MyListsView(viewModel: .init())
+                MyListsView(viewModel: .init(service: .init()))
             }
             
             NavigationView {
-                MyListsView(viewModel: .init())
+                MyListsView(viewModel: .init(service: .init()))
             }
             .environment(\.colorScheme, .dark)
         }

@@ -14,6 +14,6 @@ final class AppCoordinator: NavigationCoordinatable {
     @Root var start = makeStart
     
     func makeStart() -> NavigationViewCoordinator<MyListsCoordinator> {
-        NavigationViewCoordinator(MyListsCoordinator())
+        NavigationViewCoordinator(MyListsCoordinator(service: .init()))
     }
 }

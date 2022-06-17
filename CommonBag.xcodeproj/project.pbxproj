@@ -27,6 +27,7 @@
 		4B8F507F285CA3C3003D4CDF /* AddProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8F507E285CA3C3003D4CDF /* AddProductView.swift */; };
 		4B8F5081285CA3D4003D4CDF /* AddProductViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8F5080285CA3D4003D4CDF /* AddProductViewModel.swift */; };
 		4B8F5084285CA82B003D4CDF /* AddedProductRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8F5083285CA82B003D4CDF /* AddedProductRow.swift */; };
+		4B8F5088285D1FD3003D4CDF /* ProductListService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8F5087285D1FD3003D4CDF /* ProductListService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +51,7 @@
 		4B8F507E285CA3C3003D4CDF /* AddProductView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProductView.swift; sourceTree = "<group>"; };
 		4B8F5080285CA3D4003D4CDF /* AddProductViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProductViewModel.swift; sourceTree = "<group>"; };
 		4B8F5083285CA82B003D4CDF /* AddedProductRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddedProductRow.swift; sourceTree = "<group>"; };
+		4B8F5087285D1FD3003D4CDF /* ProductListService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,10 +85,8 @@
 		4B8F504B285BD055003D4CDF /* CommonBag */ = {
 			isa = PBXGroup;
 			children = (
-				4B8F507B285CA3A3003D4CDF /* AddProduct */,
-				4B8F506F285C93FF003D4CDF /* MyLists */,
-				4B8F5068285BE691003D4CDF /* Common */,
-				4B8F505D285BD1BE003D4CDF /* ProductList */,
+				4B8F5086285D1FC4003D4CDF /* Services */,
+				4B8F5085285D1FB3003D4CDF /* Screens */,
 				4B8F504C285BD055003D4CDF /* CommonBagApp.swift */,
 				4B8F5066285BE53B003D4CDF /* AppCoordinator.swift */,
 				4B8F5050285BD057003D4CDF /* Assets.xcassets */,
@@ -178,6 +178,25 @@
 			path = Components;
 			sourceTree = "<group>";
 		};
+		4B8F5085285D1FB3003D4CDF /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				4B8F507B285CA3A3003D4CDF /* AddProduct */,
+				4B8F506F285C93FF003D4CDF /* MyLists */,
+				4B8F5068285BE691003D4CDF /* Common */,
+				4B8F505D285BD1BE003D4CDF /* ProductList */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		4B8F5086285D1FC4003D4CDF /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				4B8F5087285D1FD3003D4CDF /* ProductListService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -263,6 +282,7 @@
 				4B8F505F285BD1E3003D4CDF /* ProductListView.swift in Sources */,
 				4B8F5065285BD9BF003D4CDF /* ProductModel.swift in Sources */,
 				4B8F5075285C950D003D4CDF /* MyListViewModel.swift in Sources */,
+				4B8F5088285D1FD3003D4CDF /* ProductListService.swift in Sources */,
 				4B8F5061285BD1FC003D4CDF /* ProductListViewModel.swift in Sources */,
 				4B8F507F285CA3C3003D4CDF /* AddProductView.swift in Sources */,
 				4B8F5081285CA3D4003D4CDF /* AddProductViewModel.swift in Sources */,

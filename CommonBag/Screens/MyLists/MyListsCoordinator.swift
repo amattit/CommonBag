@@ -14,15 +14,21 @@ final class MyListsCoordinator: NavigationCoordinatable {
     
     @Root var start = makeStart
     @Route(.push) var productList = makeProductList
+    
+    let service: ProductListService
+    
+    init(service: ProductListService) {
+        self.service = service
+    }
 }
 
 extension MyListsCoordinator {
     @ViewBuilder
     func makeStart() -> some View {
-        MyListsView(viewModel: .init())
+        MyListsView(viewModel: .init(service: service))
     }
     
     func makeProductList(list: ListModel) -> ProductListCoordinator {
-        ProductListCoordinator(list: list)
+        ProductListCoordinator(list: list, service: service)
     }
 }
