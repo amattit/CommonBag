@@ -7,6 +7,7 @@
 
 import Foundation
 import Stinsen
+import Combine
 // TODO: Добавить состояние экрана для переключения типа клавиатуры, когда нажимаешь : количество
 final class AddProductViewModel: ObservableObject {
     @RouterObject var router: NavigationRouter<AddProductCoordinator>?
@@ -14,12 +15,15 @@ final class AddProductViewModel: ObservableObject {
     
     @Published var upcomingProducts: [ProductModel]
     let list: ListModel
-    let service: ProductListService
+    let networkClient: NetworkClientProtocol
+    var disposables = Set<AnyCancellable>()
+    let completion: (() -> Void)?
     
-    init(service: ProductListService, list: ListModel, upcomingProducts: [ProductModel]) {
+    init(networkClient: NetworkClientProtocol, list: ListModel, upcomingProducts: [ProductModel], completion: (() -> Void)?) {
         self.upcomingProducts = upcomingProducts
         self.list = list
-        self.service = service
+        self.networkClient = networkClient
+        self.completion = completion
     }
     
     func handleInput() {
@@ -39,7 +43,11 @@ final class AddProductViewModel: ObservableObject {
                 return nil
             }
         self.upcomingProducts.append(contentsOf: items)
-        self.service.addProduct(to: list, products: items)
+        for model in items {
+            create(model)
+        }
+        // TODO: 
+//        self.service.addProduct(to: list, products: items)
         self.input = ""
         print(items)
     }
@@ -50,6 +58,23 @@ final class AddProductViewModel: ObservableObject {
     
     func dismiss() {
         handleInput()
-        router?.dismissCoordinator(nil)
+        router?.dismissCoordinator(completion)
+    }
+    
+    private func create(_ model: ProductModel) {
+        networkClient
+            .execute(api: API.Products.create(list, model), type: DTO.ProductRs.self)
+            .sink { completion in
+                switch completion {
+                case .failure(let error):
+                    print(error.localizedDescription)
+                case .finished:
+                    break
+                }
+            } receiveValue: { dto in
+                print(dto)
+            }
+            .store(in: &disposables)
+
     }
 }

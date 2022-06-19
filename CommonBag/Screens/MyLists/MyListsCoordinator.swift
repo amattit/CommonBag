@@ -15,20 +15,20 @@ final class MyListsCoordinator: NavigationCoordinatable {
     @Root var start = makeStart
     @Route(.push) var productList = makeProductList
     
-    let service: ProductListService
+    let networkClient: NetworkClientProtocol
     
-    init(service: ProductListService) {
-        self.service = service
+    init(networkClient: NetworkClientProtocol) {
+        self.networkClient = networkClient
     }
 }
 
 extension MyListsCoordinator {
     @ViewBuilder
     func makeStart() -> some View {
-        MyListsView(viewModel: .init(service: service))
+        MyListsView(viewModel: .init(networkClient: networkClient))
     }
     
     func makeProductList(list: ListModel) -> ProductListCoordinator {
-        ProductListCoordinator(list: list, service: service)
+        ProductListCoordinator(list: list, networkClient: networkClient)
     }
 }

@@ -12,18 +12,20 @@ final class AddProductCoordinator: NavigationCoordinatable {
     let stack = NavigationStack(initial: \AddProductCoordinator.start)
     let upcomingProducts: [ProductModel]
     @Root var start = makeStart
-    let service: ProductListService
+    let networkClient: NetworkClientProtocol
     let list: ListModel
-    init(list: ListModel, upcomingProducts: [ProductModel], service: ProductListService) {
+    let completion: (()-> Void)?
+    init(list: ListModel, upcomingProducts: [ProductModel], networkClient: NetworkClientProtocol, completion: (()-> Void)?) {
         self.upcomingProducts = upcomingProducts
-        self.service = service
+        self.networkClient = networkClient
         self.list = list
+        self.completion = completion
     }
 }
 
 extension AddProductCoordinator {
     @ViewBuilder
     func makeStart() -> some View {
-        AddProductView(viewModel: .init(service: service, list: list, upcomingProducts: upcomingProducts))
+        AddProductView(viewModel: .init(networkClient: networkClient, list: list, upcomingProducts: upcomingProducts, completion: completion))
     }
 }

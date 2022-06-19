@@ -15,17 +15,19 @@ final class ProductListCoordinator: NavigationCoordinatable {
     @Route(.fullScreen) var add = makeAddProduct
     
     let list: ListModel
-    let service: ProductListService
-    init(list: ListModel, service: ProductListService) {
-        self.service = service
+    let networkClient: NetworkClientProtocol
+    let viewModel: ProductListViewModel
+    init(list: ListModel, networkClient: NetworkClientProtocol) {
+        self.networkClient = networkClient
         self.list = list
+        self.viewModel = .init(list: list, networkClient: networkClient)
     }
     
     @ViewBuilder func makeStart() -> some View {
-        ProductListView(viewModel: .init(list: list, service: service))
+        ProductListView(viewModel: viewModel)
     }
     
     func makeAddProduct(upcomingProducts: [ProductModel]) -> AddProductCoordinator {
-        AddProductCoordinator(list: list, upcomingProducts: upcomingProducts, service: service)
+        AddProductCoordinator(list: list, upcomingProducts: upcomingProducts, networkClient: networkClient, completion: viewModel.load)
     }
 }

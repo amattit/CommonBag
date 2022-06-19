@@ -28,6 +28,13 @@
 		4B8F5081285CA3D4003D4CDF /* AddProductViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8F5080285CA3D4003D4CDF /* AddProductViewModel.swift */; };
 		4B8F5084285CA82B003D4CDF /* AddedProductRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8F5083285CA82B003D4CDF /* AddedProductRow.swift */; };
 		4B8F5088285D1FD3003D4CDF /* ProductListService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8F5087285D1FD3003D4CDF /* ProductListService.swift */; };
+		4B8F508C285F7C07003D4CDF /* Networking in Frameworks */ = {isa = PBXBuildFile; productRef = 4B8F508B285F7C07003D4CDF /* Networking */; };
+		4B8F508E285F7C29003D4CDF /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8F508D285F7C29003D4CDF /* API.swift */; };
+		4B8F5090285FBC14003D4CDF /* Auth+API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8F508F285FBC14003D4CDF /* Auth+API.swift */; };
+		4B8F5092285FBCC4003D4CDF /* List+API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8F5091285FBCC4003D4CDF /* List+API.swift */; };
+		4B8F5094285FBDCC003D4CDF /* Products+API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8F5093285FBDCC003D4CDF /* Products+API.swift */; };
+		4B8F5096285FBE79003D4CDF /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8F5095285FBE79003D4CDF /* NetworkClient.swift */; };
+		4B8F5098285FCA7B003D4CDF /* DTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8F5097285FCA7B003D4CDF /* DTO.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +59,12 @@
 		4B8F5080285CA3D4003D4CDF /* AddProductViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProductViewModel.swift; sourceTree = "<group>"; };
 		4B8F5083285CA82B003D4CDF /* AddedProductRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddedProductRow.swift; sourceTree = "<group>"; };
 		4B8F5087285D1FD3003D4CDF /* ProductListService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListService.swift; sourceTree = "<group>"; };
+		4B8F508D285F7C29003D4CDF /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		4B8F508F285FBC14003D4CDF /* Auth+API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Auth+API.swift"; sourceTree = "<group>"; };
+		4B8F5091285FBCC4003D4CDF /* List+API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "List+API.swift"; sourceTree = "<group>"; };
+		4B8F5093285FBDCC003D4CDF /* Products+API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Products+API.swift"; sourceTree = "<group>"; };
+		4B8F5095285FBE79003D4CDF /* NetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
+		4B8F5097285FCA7B003D4CDF /* DTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTO.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +72,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4B8F508C285F7C07003D4CDF /* Networking in Frameworks */,
 				4B8F505C285BD1A5003D4CDF /* Stinsen in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -85,6 +99,7 @@
 		4B8F504B285BD055003D4CDF /* CommonBag */ = {
 			isa = PBXGroup;
 			children = (
+				4B8F5089285F7BDE003D4CDF /* Networking */,
 				4B8F5086285D1FC4003D4CDF /* Services */,
 				4B8F5085285D1FB3003D4CDF /* Screens */,
 				4B8F504C285BD055003D4CDF /* CommonBagApp.swift */,
@@ -197,6 +212,19 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
+		4B8F5089285F7BDE003D4CDF /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				4B8F508D285F7C29003D4CDF /* API.swift */,
+				4B8F5091285FBCC4003D4CDF /* List+API.swift */,
+				4B8F508F285FBC14003D4CDF /* Auth+API.swift */,
+				4B8F5093285FBDCC003D4CDF /* Products+API.swift */,
+				4B8F5095285FBE79003D4CDF /* NetworkClient.swift */,
+				4B8F5097285FCA7B003D4CDF /* DTO.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -215,6 +243,7 @@
 			name = CommonBag;
 			packageProductDependencies = (
 				4B8F505B285BD1A5003D4CDF /* Stinsen */,
+				4B8F508B285F7C07003D4CDF /* Networking */,
 			);
 			productName = CommonBag;
 			productReference = 4B8F5049285BD055003D4CDF /* CommonBag.app */;
@@ -246,6 +275,7 @@
 			mainGroup = 4B8F5040285BD055003D4CDF;
 			packageReferences = (
 				4B8F505A285BD1A5003D4CDF /* XCRemoteSwiftPackageReference "stinsen" */,
+				4B8F508A285F7C07003D4CDF /* XCRemoteSwiftPackageReference "Networking" */,
 			);
 			productRefGroup = 4B8F504A285BD055003D4CDF /* Products */;
 			projectDirPath = "";
@@ -274,7 +304,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				4B8F5077285C958A003D4CDF /* MyListsCoordinator.swift in Sources */,
+				4B8F508E285F7C29003D4CDF /* API.swift in Sources */,
 				4B8F506E285BE6E6003D4CDF /* AddActionModifier.swift in Sources */,
+				4B8F5098285FCA7B003D4CDF /* DTO.swift in Sources */,
+				4B8F5092285FBCC4003D4CDF /* List+API.swift in Sources */,
 				4B8F5084285CA82B003D4CDF /* AddedProductRow.swift in Sources */,
 				4B8F507D285CA3B9003D4CDF /* AddProductCoordinator.swift in Sources */,
 				4B8F5067285BE53B003D4CDF /* AppCoordinator.swift in Sources */,
@@ -284,12 +317,15 @@
 				4B8F5075285C950D003D4CDF /* MyListViewModel.swift in Sources */,
 				4B8F5088285D1FD3003D4CDF /* ProductListService.swift in Sources */,
 				4B8F5061285BD1FC003D4CDF /* ProductListViewModel.swift in Sources */,
+				4B8F5090285FBC14003D4CDF /* Auth+API.swift in Sources */,
 				4B8F507F285CA3C3003D4CDF /* AddProductView.swift in Sources */,
 				4B8F5081285CA3D4003D4CDF /* AddProductViewModel.swift in Sources */,
 				4B8F506B285BE6B3003D4CDF /* ProductRow.swift in Sources */,
 				4B8F5063285BD208003D4CDF /* ProductListCoordinator.swift in Sources */,
+				4B8F5094285FBDCC003D4CDF /* Products+API.swift in Sources */,
 				4B8F507A285CA215003D4CDF /* MyListRow.swift in Sources */,
 				4B8F504D285BD055003D4CDF /* CommonBagApp.swift in Sources */,
+				4B8F5096285FBE79003D4CDF /* NetworkClient.swift in Sources */,
 				4B8F5073285C949A003D4CDF /* ListModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -503,6 +539,14 @@
 				minimumVersion = 2.0.0;
 			};
 		};
+		4B8F508A285F7C07003D4CDF /* XCRemoteSwiftPackageReference "Networking" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/amattit/Networking";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -510,6 +554,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4B8F505A285BD1A5003D4CDF /* XCRemoteSwiftPackageReference "stinsen" */;
 			productName = Stinsen;
+		};
+		4B8F508B285F7C07003D4CDF /* Networking */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4B8F508A285F7C07003D4CDF /* XCRemoteSwiftPackageReference "Networking" */;
+			productName = Networking;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

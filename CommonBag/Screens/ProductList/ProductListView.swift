@@ -41,7 +41,7 @@ struct ProductListView: View {
                     }
                     .swipeActions {
                         Button(action: {
-                            viewModel.deleteFromUpcoming(product)
+                            viewModel.delete(product)
                         }) {
                             Image(systemName: "trash")
                         }
@@ -74,7 +74,7 @@ struct ProductListView: View {
                     .listRowBackground(Color.secondary.opacity(0.07))
                     .swipeActions {
                         Button(action: {
-                            viewModel.deleteFromMade(product)
+                            viewModel.delete(product)
                         }) {
                             Image(systemName: "trash")
                         }
@@ -90,6 +90,9 @@ struct ProductListView: View {
             }
         }
         .listStyle(.plain)
+        .refreshable {
+            viewModel.load()
+        }
         .navigationBarTitle(viewModel.list.title)
         .navigationBarBackButtonHidden(true)
         .toolbar {
@@ -117,11 +120,11 @@ struct ProductListView_Preview: PreviewProvider {
     static var previews: some View {
         Group {
             NavigationView {
-                ProductListView(viewModel: .init(list: .mock, service: .init()))
+                ProductListView(viewModel: .init(list: .mock, networkClient: NetworkClient()))
             }
             
             NavigationView {
-                ProductListView(viewModel: .init(list: .mockEmpty, service: .init()))
+                ProductListView(viewModel: .init(list: .mockEmpty, networkClient: NetworkClient()))
             }
             .environment(\.colorScheme, .dark)
         }

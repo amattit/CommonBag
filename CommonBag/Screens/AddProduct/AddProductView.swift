@@ -52,6 +52,6 @@ struct AddProductView: View {
 
 struct AddProductView_Preview: PreviewProvider {
     static var previews: some View {
-        AddProductView(viewModel: .init(service: .init(), list: .mock, upcomingProducts: []))
+        AddProductView(viewModel: .init(networkClient: NetworkClient(), list: .mock, upcomingProducts: [], completion: nil))
     }
 }
