@@ -49,7 +49,25 @@ final class MyListsViewModel: ObservableObject {
                 self.next()
             }
             .store(in: &disposables)
-
+    }
+    
+    ///  Обновление списков
+    func refresh() {
+        networkClient
+            .execute(api: API.List.getAll, type: [DTO.ListRs].self)
+            .sink { completion in
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            } receiveValue: { response in
+                self.lists = response.map {
+                    ListModel(id: $0.id, title: $0.title, description: $0.count)
+                }
+            }
+            .store(in: &disposables)
     }
     
     private func next() {
@@ -64,7 +82,6 @@ final class MyListsViewModel: ObservableObject {
                 return
             }
             showProductList(item)
-            // TODO: Выбрать последний выбранный список и открыть его
         }
     }
     
@@ -76,7 +93,7 @@ final class MyListsViewModel: ObservableObject {
     
     /// Создать список продуктов, а потом перейти к нему
     func addList() {
-        let dto = DTO.UpsertListRq(title: "Список покупок")
+        let dto = ListModel(id: .init(), title: "Список продуктов", description: "")
         networkClient
             .execute(api: API.List.create(dto), type: DTO.ListRs.self)
             .sink { completion in
@@ -90,6 +107,23 @@ final class MyListsViewModel: ObservableObject {
                 let item = ListModel(id: response.id, title: response.title, description: response.count)
                 self.lists.append(item)
                 self.showProductList(item)
+            }
+            .store(in: &disposables)
+    }
+    
+    /// Удаление списка продуктов
+    func delete(_ model: ListModel) {
+        networkClient
+            .executeData(api: API.List.delete(model))
+            .receive(on: DispatchQueue.main)
+            .sink { completion in
+                if case let .failure(error) = completion {
+                    print(error.localizedDescription)
+                }
+            } receiveValue: { _ in
+                self.lists.removeAll {
+                    $0 == model
+                }
             }
             .store(in: &disposables)
     }

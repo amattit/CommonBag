@@ -10,7 +10,7 @@ import Networking
 
 extension API {
     enum List: APICall {
-        case getAll, create(DTO.UpsertListRq)
+        case getAll, create(ListModel), delete(ListModel)
         var commonPath: String { "/api/v1/list" }
         var path: String {
             switch self {
@@ -18,6 +18,8 @@ extension API {
                 return commonPath
             case .create:
                 return commonPath
+            case .delete(let list):
+                return commonPath + "/\(list.id.uuidString)"
             }
         }
         
@@ -27,6 +29,8 @@ extension API {
                 return "GET"
             case .create:
                 return "POST"
+            case .delete:
+                return "DELETE"
             }
         }
         
@@ -43,10 +47,10 @@ extension API {
         
         func body() throws -> Data? {
             switch self {
-            case .getAll:
-                return nil
             case .create(let dto):
-                return try JSONEncoder().encode(dto)
+                return try JSONEncoder().encode(DTO.UpsertListRq(id: nil, title: dto.title))
+            default:
+                return nil
             }
         }
     }

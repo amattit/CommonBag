@@ -16,9 +16,20 @@ struct MyListsView: View {
                     Button(action: {viewModel.showProductList(item)}) {
                         MyListRow(item: item)
                     }
+                    .swipeActions {
+                        Button(action: {
+                            viewModel.delete(item)
+                        }) {
+                            Image(systemName: "trash")
+                        }
+                        .tint(.red)
+                    }
                 }
             }
             .listStyle(.plain)
+            .refreshable {
+                viewModel.refresh()
+            }
             
             Button(action: viewModel.addList) {
                 Image(systemName: "plus.circle.fill")
