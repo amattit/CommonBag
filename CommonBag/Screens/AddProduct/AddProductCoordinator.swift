@@ -26,6 +26,6 @@ final class AddProductCoordinator: NavigationCoordinatable {
 extension AddProductCoordinator {
     @ViewBuilder
     func makeStart() -> some View {
-        AddProductView(viewModel: .init(networkClient: networkClient, list: list, upcomingProducts: upcomingProducts, completion: completion))
+        AddProductView(viewModel: .init(networkClient: networkClient, list: list, upcomingProducts: upcomingProducts))
     }
 }

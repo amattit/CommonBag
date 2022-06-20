@@ -14,6 +14,7 @@ final class ProductListViewModel: ObservableObject {
     @Published var upcomingProducts: [ProductModel] = []
     @Published var madeProducts: [ProductModel] = []
     let list: ListModel
+    @Published var newListName = ""
     
     let networkClient: NetworkClientProtocol
     
@@ -107,6 +108,21 @@ final class ProductListViewModel: ObservableObject {
         upcomingProducts.removeAll {
             $0 == product
         }
+    }
+    
+    func getShareToken() {
+        networkClient
+            .execute(api: API.List.getShareToken(list.id), type: DTO.ShareTokenRs.self)
+            .receive(on: DispatchQueue.main)
+            .sink { completion in
+                if case let .failure(error) = completion {
+                    print(error.localizedDescription)
+                }
+            } receiveValue: { response in
+                guard let url = URL(string: "https://product-list-dev.herokuapp.com/list/token/\(response.token)") else { return }
+                self.router?.route(to: \.share, url)
+            }
+            .store(in: &disposables)
     }
     
     private func deleteFromMade(_ product: ProductModel) {

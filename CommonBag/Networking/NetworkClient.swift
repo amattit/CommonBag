@@ -21,7 +21,11 @@ final class NetworkClient: NetworkClientProtocol, WebRepository {
     
     let queue: DispatchQueue = .init(label: "Networking")
     
-    let decoder: JSONDecoder = .init()
+    let decoder: JSONDecoder = {
+       let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .iso8601
+        return decoder
+    }()
     
     func execute<T: Decodable>(api: APICall, type: T.Type) -> AnyPublisher<T, Error> {
         call(endpoint: api, httpCodes: .success, decoder: decoder, errorType: ServerError.self)

@@ -103,7 +103,7 @@ struct ProductListView: View {
             }
             ToolbarItem(placement: .navigationBarTrailing) {
                 HStack {
-                    Button(action: {}) {
+                    Button(action: viewModel.getShareToken) {
                         Image(systemName: "person.2.wave.2")
                     }
                     

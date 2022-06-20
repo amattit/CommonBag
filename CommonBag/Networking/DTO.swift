@@ -48,4 +48,9 @@ struct DTO {
         let pushToken: String?
         let os: String
     }
+    
+    struct ShareTokenRs: Codable {
+        let token: String
+        let expireAt: Date
+    }
 }

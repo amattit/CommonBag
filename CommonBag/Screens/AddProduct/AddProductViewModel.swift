@@ -17,13 +17,11 @@ final class AddProductViewModel: ObservableObject {
     let list: ListModel
     let networkClient: NetworkClientProtocol
     var disposables = Set<AnyCancellable>()
-    let completion: (() -> Void)?
     
-    init(networkClient: NetworkClientProtocol, list: ListModel, upcomingProducts: [ProductModel], completion: (() -> Void)?) {
+    init(networkClient: NetworkClientProtocol, list: ListModel, upcomingProducts: [ProductModel]) {
         self.upcomingProducts = upcomingProducts
         self.list = list
         self.networkClient = networkClient
-        self.completion = completion
     }
     
     func handleInput() {
@@ -58,7 +56,7 @@ final class AddProductViewModel: ObservableObject {
     
     func dismiss() {
         handleInput()
-        router?.dismissCoordinator(completion)
+        router?.dismissCoordinator(router?.coordinator.completion)
     }
     
     private func create(_ model: ProductModel) {

@@ -13,6 +13,7 @@ final class ProductListCoordinator: NavigationCoordinatable {
     
     @Root var start = makeStart
     @Route(.fullScreen) var add = makeAddProduct
+    @Route(.modal) var share = makeShareToken
     
     let list: ListModel
     let networkClient: NetworkClientProtocol
@@ -29,5 +30,13 @@ final class ProductListCoordinator: NavigationCoordinatable {
     
     func makeAddProduct(upcomingProducts: [ProductModel]) -> AddProductCoordinator {
         AddProductCoordinator(list: list, upcomingProducts: upcomingProducts, networkClient: networkClient, completion: viewModel.load)
+    }
+    
+    @ViewBuilder func makeShareToken(token: URL) -> some View {
+        ShareSheetView(activityItems: [token]) { activityType, completed, returnedItems, error in
+            if completed {
+                self.popLast(nil)
+            }
+        }
     }
 }
