@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4B2D1ED62863888F007E6FDB /* ProductSuggestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2D1ED52863888F007E6FDB /* ProductSuggestView.swift */; };
 		4B8F504D285BD055003D4CDF /* CommonBagApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8F504C285BD055003D4CDF /* CommonBagApp.swift */; };
 		4B8F5051285BD057003D4CDF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B8F5050285BD057003D4CDF /* Assets.xcassets */; };
 		4B8F5054285BD057003D4CDF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B8F5053285BD057003D4CDF /* Preview Assets.xcassets */; };
@@ -39,6 +40,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4B2D1ED32863784E007E6FDB /* CommonBag.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CommonBag.entitlements; sourceTree = "<group>"; };
+		4B2D1ED52863888F007E6FDB /* ProductSuggestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductSuggestView.swift; sourceTree = "<group>"; };
 		4B8F5049285BD055003D4CDF /* CommonBag.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CommonBag.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B8F504C285BD055003D4CDF /* CommonBagApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonBagApp.swift; sourceTree = "<group>"; };
 		4B8F5050285BD057003D4CDF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -84,6 +87,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4B2D1ED428638240007E6FDB /* ProductSuggest */ = {
+			isa = PBXGroup;
+			children = (
+				4B2D1ED52863888F007E6FDB /* ProductSuggestView.swift */,
+			);
+			path = ProductSuggest;
+			sourceTree = "<group>";
+		};
 		4B8F5040285BD055003D4CDF = {
 			isa = PBXGroup;
 			children = (
@@ -104,6 +115,7 @@
 		4B8F504B285BD055003D4CDF /* CommonBag */ = {
 			isa = PBXGroup;
 			children = (
+				4B2D1ED32863784E007E6FDB /* CommonBag.entitlements */,
 				4B8F509D2861D766003D4CDF /* Info.plist */,
 				4B8F5089285F7BDE003D4CDF /* Networking */,
 				4B8F5086285D1FC4003D4CDF /* Services */,
@@ -202,6 +214,7 @@
 		4B8F5085285D1FB3003D4CDF /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				4B2D1ED428638240007E6FDB /* ProductSuggest */,
 				4B8F509928604DDD003D4CDF /* Share */,
 				4B8F507B285CA3A3003D4CDF /* AddProduct */,
 				4B8F506F285C93FF003D4CDF /* MyLists */,
@@ -339,6 +352,7 @@
 				4B8F5063285BD208003D4CDF /* ProductListCoordinator.swift in Sources */,
 				4B8F5094285FBDCC003D4CDF /* Products+API.swift in Sources */,
 				4B8F507A285CA215003D4CDF /* MyListRow.swift in Sources */,
+				4B2D1ED62863888F007E6FDB /* ProductSuggestView.swift in Sources */,
 				4B8F504D285BD055003D4CDF /* CommonBagApp.swift in Sources */,
 				4B8F509B28604DF4003D4CDF /* ShareSheetView.swift in Sources */,
 				4B8F5096285FBE79003D4CDF /* NetworkClient.swift in Sources */,
@@ -470,6 +484,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = CommonBag/CommonBag.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"CommonBag/Preview Content\"";
@@ -500,6 +515,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = CommonBag/CommonBag.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"CommonBag/Preview Content\"";
