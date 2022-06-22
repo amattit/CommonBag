@@ -119,7 +119,7 @@ final class ProductListViewModel: ObservableObject {
                     print(error.localizedDescription)
                 }
             } receiveValue: { response in
-                guard let url = URL(string: "https://product-list-dev.herokuapp.com/list/token/\(response.token)") else { return }
+                guard let url = URL(string: "productlist://product-list-dev.herokuapp.com/list/token/\(response.token)") else { return }
                 self.router?.route(to: \.share, url)
             }
             .store(in: &disposables)

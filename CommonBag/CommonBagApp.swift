@@ -10,9 +10,14 @@ import Stinsen
 
 @main
 struct CommonBagApp: App {
+    let coordinator = AppCoordinator(networking: NetworkClient())
     var body: some Scene {
         WindowGroup {
-            AppCoordinator().view()
+            coordinator
+                .view()
+                .onOpenURL { url in
+                    coordinator.handleDeepLink(url: url)
+                }
         }
     }
 }

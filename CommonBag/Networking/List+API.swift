@@ -11,7 +11,7 @@ import Networking
 extension API {
     enum List: APICall {
         case getAll, create(ListModel), delete(ListModel), rename(UUID, String)
-        case getShareToken(UUID)
+        case getShareToken(UUID), applyShareToken(UUID)
         var commonPath: String { "/api/v1/list" }
         var path: String {
             switch self {
@@ -25,12 +25,14 @@ extension API {
                 return commonPath + "/\(uid.uuidString)"
             case .getShareToken(let uid):
                 return commonPath + "/\(uid.uuidString)/share-token"
+            case .applyShareToken(let uid):
+                return commonPath + "/token" + "/\(uid.uuidString)"
             }
         }
         
         var method: String {
             switch self {
-            case .getAll, .getShareToken:
+            case .getAll, .getShareToken, .applyShareToken:
                 return "GET"
             case .create:
                 return "POST"
