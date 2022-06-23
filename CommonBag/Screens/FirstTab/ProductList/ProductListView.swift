@@ -66,6 +66,12 @@ struct ProductListView: View {
             .listRowSeparator(.hidden)
             
             // Купленные продукты
+            if !viewModel.madeProducts.isEmpty {
+                Text("Уже купил")
+                    .font(.footnote)
+                    .foregroundColor(.secondary)
+                    .listRowSeparator(.hidden)
+            }
             ForEach(viewModel.madeProducts) { product in
                 MadeProductRowView(model: product)
                     .addAction {

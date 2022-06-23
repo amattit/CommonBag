@@ -10,6 +10,41 @@ import Stinsen
 import Combine
 import SwiftUI
 
+final class RootCoordinator: TabCoordinatable {
+    var child = TabChild(startingItems: [
+        \RootCoordinator.lists,
+         \RootCoordinator.recipe
+    ])
+    
+    @Route(tabItem: makeHomeTab) var lists = makeHome
+    @Route(tabItem: makeTodosTab) var recipe = makeRecipes
+    
+    let networking: NetworkClientProtocol
+    var cancellable = Set<AnyCancellable>()
+    
+    init(networking: NetworkClientProtocol) {
+        self.networking = networking
+    }
+    
+    func makeHome() -> NavigationViewCoordinator<MyListsCoordinator> {
+        NavigationViewCoordinator(MyListsCoordinator(networkClient: networking))
+    }
+    
+    @ViewBuilder func makeHomeTab(isActive: Bool) -> some View {
+        Image(systemName: "list.bullet.rectangle" + (isActive ? ".fill" : ""))
+        Text("Lists")
+    }
+    
+    func makeRecipes() -> NavigationViewCoordinator<RecipesCategoryCoordinator> {
+        return NavigationViewCoordinator(RecipesCategoryCoordinator())
+    }
+    
+    @ViewBuilder func makeTodosTab(isActive: Bool) -> some View {
+        Image(systemName: "book" + (isActive ? ".fill" : ""))
+        Text("Todos")
+    }
+}
+
 final class AppCoordinator: NavigationCoordinatable {
     let stack = NavigationStack(initial: \AppCoordinator.load)
     
@@ -39,8 +74,8 @@ final class AppCoordinator: NavigationCoordinatable {
         .store(in: &cancellable)
     }
     
-    func makeStart() -> NavigationViewCoordinator<MyListsCoordinator> {
-        NavigationViewCoordinator(MyListsCoordinator(networkClient: networking))
+    func makeStart() -> RootCoordinator {
+        RootCoordinator(networking: networking)
     }
     
     @ViewBuilder
@@ -71,6 +106,7 @@ final class AppCoordinator: NavigationCoordinatable {
     }
     
     func navigateTo(_ list: ListModel) {
-        root(\.start).child.route(to: \.productList, list)
+        root(\.start).focusFirst(\.lists).child.route(to: \.productList, list)
+//        root(\.start).child.route(to: \.productList, list)
     }
 }
