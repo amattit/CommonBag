@@ -42,6 +42,6 @@ final class ProductListCoordinator: NavigationCoordinatable {
     }
     
     func makeRenameList(list: ListModel) -> NavigationViewCoordinator<RenameCoordinator> {
-        NavigationViewCoordinator(RenameCoordinator(currentName: list.title, title: "Новое имя", subTitle: "Чтобы проще ориентироваться в списках продуктов", uid: list.id, networkClient: networkClient, completion: nil))
+        NavigationViewCoordinator(RenameCoordinator(currentName: list.title, title: "Новое имя", subTitle: "Чтобы проще ориентироваться в списках продуктов", uid: list.id, renameService: ProductListRenameService(networkClient: networkClient), completion: nil))
     }
 }

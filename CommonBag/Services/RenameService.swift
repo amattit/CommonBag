@@ -61,3 +61,21 @@ final class ProductListRenameService: BaseRenameService {
             .eraseToAnyPublisher()
     }
 }
+
+final class UsernameRenameService: BaseRenameService {
+    override func rename() -> AnyPublisher<Bool, Error> {
+        guard let title = title else {
+            return Just(false)
+                .setFailureType(to: Error.self)
+                .eraseToAnyPublisher()
+        }
+        return networkClient.execute(api: API.User.setUsername(title), type: DTO.Profile.self)
+            .map { item -> Bool in
+                if item.username == title {
+                    return true
+                }
+                return false
+            }
+            .eraseToAnyPublisher()
+    }
+}

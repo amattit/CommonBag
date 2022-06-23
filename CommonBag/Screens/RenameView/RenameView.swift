@@ -97,27 +97,27 @@ final class RenameCoordinator: NavigationCoordinatable {
     let currentName: String
     let title: String
     let subTitle: String?
-    let networkClient: NetworkClientProtocol
     let completion: (() -> Void)?
+    let renameService: RenameServiceProtocol
     
     init(
         currentName: String,
         title: String,
         subTitle: String?,
         uid: UUID?,
-        networkClient: NetworkClientProtocol,
+        renameService: RenameServiceProtocol,
         completion: (() -> Void)?
     ) {
         self.uid = uid
-        self.networkClient = networkClient
         self.title = title
         self.subTitle = subTitle
         self.completion = completion
         self.currentName = currentName
+        self.renameService = renameService
     }
     
     @ViewBuilder
     func makeStart() -> some View {
-        RenameView(viewModel: .init(uid: uid, currentName: currentName, title: title, subTitle: subTitle, renameService: ProductListRenameService(networkClient: networkClient), completion: completion))
+        RenameView(viewModel: .init(uid: uid, currentName: currentName, title: title, subTitle: subTitle, renameService: renameService, completion: completion))
     }
 }
