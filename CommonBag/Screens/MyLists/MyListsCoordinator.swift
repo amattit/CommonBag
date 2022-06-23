@@ -14,6 +14,7 @@ final class MyListsCoordinator: NavigationCoordinatable {
     
     @Root var start = makeStart
     @Route(.push) var productList = makeProductList
+    @Route(.modal) var profile = makeUserProfile
     
     let networkClient: NetworkClientProtocol
     
@@ -30,5 +31,9 @@ extension MyListsCoordinator {
     
     func makeProductList(list: ListModel) -> ProductListCoordinator {
         ProductListCoordinator(list: list, networkClient: networkClient)
+    }
+    
+    func makeUserProfile() -> NavigationViewCoordinator<UserProfileCoordinator> {
+        NavigationViewCoordinator(UserProfileCoordinator(networkClient: networkClient))
     }
 }

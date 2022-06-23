@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		4B2D1ED62863888F007E6FDB /* ProductSuggestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2D1ED52863888F007E6FDB /* ProductSuggestView.swift */; };
+		4B2D1ED92863C4F9007E6FDB /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2D1ED82863C4F9007E6FDB /* UserProfileView.swift */; };
+		4B2D1EDB2863C586007E6FDB /* User + API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2D1EDA2863C586007E6FDB /* User + API.swift */; };
+		4B2D1EDD2864A06F007E6FDB /* RenameService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2D1EDC2864A06F007E6FDB /* RenameService.swift */; };
+		4B2D1EE02864A7A7007E6FDB /* RenameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2D1EDF2864A7A7007E6FDB /* RenameView.swift */; };
+		4B78071D2864B60C005770C6 /* NotificationName+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B78071C2864B60C005770C6 /* NotificationName+Extension.swift */; };
 		4B8F504D285BD055003D4CDF /* CommonBagApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8F504C285BD055003D4CDF /* CommonBagApp.swift */; };
 		4B8F5051285BD057003D4CDF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B8F5050285BD057003D4CDF /* Assets.xcassets */; };
 		4B8F5054285BD057003D4CDF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B8F5053285BD057003D4CDF /* Preview Assets.xcassets */; };
@@ -42,6 +47,11 @@
 /* Begin PBXFileReference section */
 		4B2D1ED32863784E007E6FDB /* CommonBag.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CommonBag.entitlements; sourceTree = "<group>"; };
 		4B2D1ED52863888F007E6FDB /* ProductSuggestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductSuggestView.swift; sourceTree = "<group>"; };
+		4B2D1ED82863C4F9007E6FDB /* UserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
+		4B2D1EDA2863C586007E6FDB /* User + API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User + API.swift"; sourceTree = "<group>"; };
+		4B2D1EDC2864A06F007E6FDB /* RenameService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenameService.swift; sourceTree = "<group>"; };
+		4B2D1EDF2864A7A7007E6FDB /* RenameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenameView.swift; sourceTree = "<group>"; };
+		4B78071C2864B60C005770C6 /* NotificationName+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationName+Extension.swift"; sourceTree = "<group>"; };
 		4B8F5049285BD055003D4CDF /* CommonBag.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CommonBag.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B8F504C285BD055003D4CDF /* CommonBagApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonBagApp.swift; sourceTree = "<group>"; };
 		4B8F5050285BD057003D4CDF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -95,6 +105,30 @@
 			path = ProductSuggest;
 			sourceTree = "<group>";
 		};
+		4B2D1ED72863C4E7007E6FDB /* UserProfile */ = {
+			isa = PBXGroup;
+			children = (
+				4B2D1ED82863C4F9007E6FDB /* UserProfileView.swift */,
+			);
+			path = UserProfile;
+			sourceTree = "<group>";
+		};
+		4B2D1EDE2864A796007E6FDB /* RenameView */ = {
+			isa = PBXGroup;
+			children = (
+				4B2D1EDF2864A7A7007E6FDB /* RenameView.swift */,
+			);
+			path = RenameView;
+			sourceTree = "<group>";
+		};
+		4B78071B2864B5FC005770C6 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				4B78071C2864B60C005770C6 /* NotificationName+Extension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		4B8F5040285BD055003D4CDF = {
 			isa = PBXGroup;
 			children = (
@@ -115,6 +149,7 @@
 		4B8F504B285BD055003D4CDF /* CommonBag */ = {
 			isa = PBXGroup;
 			children = (
+				4B78071B2864B5FC005770C6 /* Extensions */,
 				4B2D1ED32863784E007E6FDB /* CommonBag.entitlements */,
 				4B8F509D2861D766003D4CDF /* Info.plist */,
 				4B8F5089285F7BDE003D4CDF /* Networking */,
@@ -214,6 +249,8 @@
 		4B8F5085285D1FB3003D4CDF /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				4B2D1EDE2864A796007E6FDB /* RenameView */,
+				4B2D1ED72863C4E7007E6FDB /* UserProfile */,
 				4B2D1ED428638240007E6FDB /* ProductSuggest */,
 				4B8F509928604DDD003D4CDF /* Share */,
 				4B8F507B285CA3A3003D4CDF /* AddProduct */,
@@ -228,6 +265,7 @@
 			isa = PBXGroup;
 			children = (
 				4B8F5087285D1FD3003D4CDF /* ProductListService.swift */,
+				4B2D1EDC2864A06F007E6FDB /* RenameService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -236,6 +274,7 @@
 			isa = PBXGroup;
 			children = (
 				4B8F508D285F7C29003D4CDF /* API.swift */,
+				4B2D1EDA2863C586007E6FDB /* User + API.swift */,
 				4B8F5091285FBCC4003D4CDF /* List+API.swift */,
 				4B8F508F285FBC14003D4CDF /* Auth+API.swift */,
 				4B8F5093285FBDCC003D4CDF /* Products+API.swift */,
@@ -332,14 +371,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				4B8F5077285C958A003D4CDF /* MyListsCoordinator.swift in Sources */,
+				4B2D1ED92863C4F9007E6FDB /* UserProfileView.swift in Sources */,
 				4B8F508E285F7C29003D4CDF /* API.swift in Sources */,
+				4B2D1EDB2863C586007E6FDB /* User + API.swift in Sources */,
 				4B8F506E285BE6E6003D4CDF /* AddActionModifier.swift in Sources */,
+				4B2D1EDD2864A06F007E6FDB /* RenameService.swift in Sources */,
 				4B8F5098285FCA7B003D4CDF /* DTO.swift in Sources */,
 				4B8F5092285FBCC4003D4CDF /* List+API.swift in Sources */,
 				4B8F5084285CA82B003D4CDF /* AddedProductRow.swift in Sources */,
 				4B8F507D285CA3B9003D4CDF /* AddProductCoordinator.swift in Sources */,
 				4B8F5067285BE53B003D4CDF /* AppCoordinator.swift in Sources */,
 				4B8F5071285C9410003D4CDF /* MyListsView.swift in Sources */,
+				4B2D1EE02864A7A7007E6FDB /* RenameView.swift in Sources */,
 				4B8F505F285BD1E3003D4CDF /* ProductListView.swift in Sources */,
 				4B8F5065285BD9BF003D4CDF /* ProductModel.swift in Sources */,
 				4B8F5075285C950D003D4CDF /* MyListViewModel.swift in Sources */,
@@ -355,6 +398,7 @@
 				4B2D1ED62863888F007E6FDB /* ProductSuggestView.swift in Sources */,
 				4B8F504D285BD055003D4CDF /* CommonBagApp.swift in Sources */,
 				4B8F509B28604DF4003D4CDF /* ShareSheetView.swift in Sources */,
+				4B78071D2864B60C005770C6 /* NotificationName+Extension.swift in Sources */,
 				4B8F5096285FBE79003D4CDF /* NetworkClient.swift in Sources */,
 				4B8F5073285C949A003D4CDF /* ListModel.swift in Sources */,
 			);

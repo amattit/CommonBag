@@ -93,7 +93,7 @@ struct ProductListView: View {
         .refreshable {
             viewModel.load()
         }
-        .navigationBarTitle(viewModel.list.title)
+        .navigationBarTitle(viewModel.newListName)
         .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
@@ -107,8 +107,8 @@ struct ProductListView: View {
                         Image(systemName: "person.2.wave.2")
                     }
                     
-                    Button(action: {}) {
-                        Image(systemName: "mustache")
+                    Button(action: viewModel.changeListTile) {
+                        Image(systemName: "pencil")
                     }
                 }
             }

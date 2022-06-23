@@ -28,6 +28,7 @@ final class MyListsViewModel: ObservableObject {
     
     init(networkClient: NetworkClientProtocol) {
         self.networkClient = networkClient
+        bind()
         load()
     }
     
@@ -126,5 +127,17 @@ final class MyListsViewModel: ObservableObject {
                 }
             }
             .store(in: &disposables)
+    }
+    
+    func showUserProfile() {
+        router?.route(to: \.profile)
+    }
+    
+    func bind() {
+        NotificationCenter.default.publisher(for: .reloadLists).sink { _ in
+        } receiveValue: { _ in
+            self.refresh()
+        }
+        .store(in: &disposables)
     }
 }

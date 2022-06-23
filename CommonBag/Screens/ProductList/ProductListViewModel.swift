@@ -15,7 +15,6 @@ final class ProductListViewModel: ObservableObject {
     @Published var madeProducts: [ProductModel] = []
     let list: ListModel
     @Published var newListName = ""
-    
     let networkClient: NetworkClientProtocol
     
     var disposables = Set<AnyCancellable>()
@@ -27,9 +26,9 @@ final class ProductListViewModel: ObservableObject {
     init(list: ListModel, networkClient: NetworkClientProtocol) {
         self.networkClient = networkClient
         self.list = list
+        self.newListName = list.title
+        bind()
         load()
-        // TODO:
-//        service.getProducts(for: list)
     }
     
     func load() {
@@ -132,10 +131,35 @@ final class ProductListViewModel: ObservableObject {
     }
     
     func dismiss() {
-        router?.dismissCoordinator(nil)
+        router?.dismissCoordinator({
+            NotificationCenter.default.post(name: .reloadLists, object: nil)
+        })
     }
     
     func showAddProducts() {
         router?.route(to: \.add, upcomingProducts)
+    }
+    
+    func changeListTile() {
+        router?.route(to: \.rename, list)
+    }
+    
+    func bind() {
+        NotificationCenter.default.publisher(for: .reloadLists).sink { _ in
+        } receiveValue: { _ in
+            self.networkClient.execute(api: API.List.getAll, type: [DTO.ListRs].self)
+                .sink { _ in
+                } receiveValue: { lists in
+                    if let title = lists.first(where: {
+                        $0.id == self.list.id
+                    })?.title {
+                        self.newListName = title
+                    }
+                }
+                .store(in: &self.disposables)
+
+        }
+        .store(in: &disposables)
+
     }
 }

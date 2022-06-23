@@ -41,6 +41,7 @@ struct DTO {
     struct Profile: Codable {
         let id: UUID
         let devices: [Device]
+        let username: String?
     }
     
     struct Device: Codable {
@@ -52,5 +53,9 @@ struct DTO {
     struct ShareTokenRs: Codable {
         let token: String
         let expireAt: Date
+    }
+    
+    struct SetUsernameRq: Codable {
+        let username: String
     }
 }

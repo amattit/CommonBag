@@ -41,7 +41,7 @@ struct MyListsView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 HStack {
-                    Button(action: {}) {
+                    Button(action: viewModel.showUserProfile) {
                         Image(systemName: "person")
                     }
                     
