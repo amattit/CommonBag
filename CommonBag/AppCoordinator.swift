@@ -36,7 +36,7 @@ final class RootCoordinator: TabCoordinatable {
     }
     
     func makeRecipes() -> NavigationViewCoordinator<RecipesCategoryCoordinator> {
-        return NavigationViewCoordinator(RecipesCategoryCoordinator())
+        return NavigationViewCoordinator(RecipesCategoryCoordinator(networking: networking))
     }
     
     @ViewBuilder func makeTodosTab(isActive: Bool) -> some View {

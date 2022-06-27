@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 import Stinsen
+import Combine
 
 struct RecipesCategoryView: View {
     @ObservedObject var viewModel: RecipesCategoryViewModel
@@ -19,9 +20,16 @@ struct RecipesCategoryView: View {
             ]) {
                 ForEach(viewModel.categories) { category in
                     ZStack(alignment: .topLeading) {
-                        Image(category.image)
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
+//                        AsyncImage(url: URL(string: category.imagePath))
+                        AsyncImage(url: URL(string: category.imagePath)) { image in
+                            image
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                        } placeholder: {
+                            Rectangle()
+                                .redacted(reason: .placeholder)
+                        }
+
                         Text(category.title)
                             .bold()
                             .padding(.horizontal)
@@ -46,44 +54,34 @@ struct RecipesCategoryView: View {
 
 final class RecipesCategoryViewModel: ObservableObject {
     @RouterObject var router: NavigationRouter<RecipesCategoryCoordinator>?
-    @Published var categories: [Category] = Category.allCases
+    @Published var categories: [DTO.CategoryRs] = []
     
-    func showCategory(_ category: Category) {
-        router?.route(to: \.category, category)
+    let networking: NetworkClientProtocol
+    
+    var disposables = Set<AnyCancellable>()
+    
+    init(networking: NetworkClientProtocol) {
+        self.networking = networking
+        load()
     }
-}
+    
+    private func load() {
+        networking
+            .execute(api: API.Recipes.getCategories, type: [DTO.CategoryRs].self)
+            .receive(on: DispatchQueue.main)
+            .sink { completion in
+                if case let .failure(error) = completion {
+                    print(error.localizedDescription)
+                }
+            } receiveValue: { response in
+                self.categories = response
+            }
+            .store(in: &disposables)
 
-enum Category: CaseIterable, Hashable, Identifiable {
-    case breakfast, dinner, supper, snack
-    
-    var id: Int {
-        self.hashValue
     }
     
-    var image: String {
-        switch self {
-        case .breakfast:
-            return "recipe.breakfast"
-        case .dinner:
-            return "recipe.dinner"
-        case .supper:
-            return "recipe.supper"
-        case .snack:
-            return "recipe.snack"
-        }
-    }
-    
-    var title: String {
-        switch self {
-        case .breakfast:
-            return "Завтрак"
-        case .dinner:
-            return "Обед"
-        case .supper:
-            return "Ужин"
-        case .snack:
-            return "Перекус"
-        }
+    func showCategory(_ category: DTO.CategoryRs) {
+        router?.route(to: \.category, category)
     }
 }
 
@@ -93,12 +91,18 @@ final class RecipesCategoryCoordinator: NavigationCoordinatable {
     @Root var start = makeStart
     @Route(.push) var category = makeCategory
     
-    @ViewBuilder
-    func makeStart() -> some View {
-        RecipesCategoryView(viewModel: .init())
+    let networking: NetworkClientProtocol
+    
+    init(networking: NetworkClientProtocol) {
+        self.networking = networking
     }
     
-    func makeCategory(category: Category) -> CategoryListCoordinator {
-        CategoryListCoordinator(category: category)
+    @ViewBuilder
+    func makeStart() -> some View {
+        RecipesCategoryView(viewModel: .init(networking: networking))
+    }
+    
+    func makeCategory(category: DTO.CategoryRs) -> CategoryListCoordinator {
+        CategoryListCoordinator(category: category, networking: networking)
     }
 }

@@ -45,6 +45,10 @@
 		4B8F5096285FBE79003D4CDF /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8F5095285FBE79003D4CDF /* NetworkClient.swift */; };
 		4B8F5098285FCA7B003D4CDF /* DTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8F5097285FCA7B003D4CDF /* DTO.swift */; };
 		4B8F509B28604DF4003D4CDF /* ShareSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8F509A28604DF4003D4CDF /* ShareSheetView.swift */; };
+		4BF805992865E58C00DA2719 /* Codable + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF805982865E58C00DA2719 /* Codable + Extension.swift */; };
+		4BF8059C2865E5B900DA2719 /* DTO.Recipes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF8059B2865E5B900DA2719 /* DTO.Recipes.swift */; };
+		4BF8059F2867AAAB00DA2719 /* Recipe+API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF8059E2867AAAB00DA2719 /* Recipe+API.swift */; };
+		4BF805A22868972100DA2719 /* SelectListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF805A12868972100DA2719 /* SelectListView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -88,6 +92,10 @@
 		4B8F509A28604DF4003D4CDF /* ShareSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheetView.swift; sourceTree = "<group>"; };
 		4B8F509C28605568003D4CDF /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		4B8F509D2861D766003D4CDF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		4BF805982865E58C00DA2719 /* Codable + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Codable + Extension.swift"; sourceTree = "<group>"; };
+		4BF8059B2865E5B900DA2719 /* DTO.Recipes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTO.Recipes.swift; sourceTree = "<group>"; };
+		4BF8059E2867AAAB00DA2719 /* Recipe+API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Recipe+API.swift"; sourceTree = "<group>"; };
+		4BF805A12868972100DA2719 /* SelectListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectListView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +139,7 @@
 			isa = PBXGroup;
 			children = (
 				4B78071C2864B60C005770C6 /* NotificationName+Extension.swift */,
+				4BF805982865E58C00DA2719 /* Codable + Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -156,14 +165,17 @@
 			path = FirstTab;
 			sourceTree = "<group>";
 		};
-		4B780722286500CB005770C6 /* SecindTab */ = {
+		4B780722286500CB005770C6 /* SecondTab */ = {
 			isa = PBXGroup;
 			children = (
+				4BF805A02868971100DA2719 /* SelectList */,
+				4BF8059D2867AA9800DA2719 /* API */,
+				4BF8059A2865E5AA00DA2719 /* Models */,
 				4B780726286506F0005770C6 /* RecipeView */,
 				4B780723286501C6005770C6 /* CategoryList */,
 				4B78071E2864EF83005770C6 /* RecipesCategory */,
 			);
-			path = SecindTab;
+			path = SecondTab;
 			sourceTree = "<group>";
 		};
 		4B780723286501C6005770C6 /* CategoryList */ = {
@@ -302,7 +314,7 @@
 		4B8F5085285D1FB3003D4CDF /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				4B780722286500CB005770C6 /* SecindTab */,
+				4B780722286500CB005770C6 /* SecondTab */,
 				4B780721286500A2005770C6 /* FirstTab */,
 				4B8F509928604DDD003D4CDF /* Share */,
 				4B8F5068285BE691003D4CDF /* Common */,
@@ -339,6 +351,30 @@
 				4B8F509A28604DF4003D4CDF /* ShareSheetView.swift */,
 			);
 			path = Share;
+			sourceTree = "<group>";
+		};
+		4BF8059A2865E5AA00DA2719 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				4BF8059B2865E5B900DA2719 /* DTO.Recipes.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		4BF8059D2867AA9800DA2719 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				4BF8059E2867AAAB00DA2719 /* Recipe+API.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		4BF805A02868971100DA2719 /* SelectList */ = {
+			isa = PBXGroup;
+			children = (
+				4BF805A12868972100DA2719 /* SelectListView.swift */,
+			);
+			path = SelectList;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -419,6 +455,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4BF8059C2865E5B900DA2719 /* DTO.Recipes.swift in Sources */,
 				4B8F5077285C958A003D4CDF /* MyListsCoordinator.swift in Sources */,
 				4B2D1ED92863C4F9007E6FDB /* UserProfileView.swift in Sources */,
 				4B8F508E285F7C29003D4CDF /* API.swift in Sources */,
@@ -431,6 +468,7 @@
 				4B8F507D285CA3B9003D4CDF /* AddProductCoordinator.swift in Sources */,
 				4B8F5067285BE53B003D4CDF /* AppCoordinator.swift in Sources */,
 				4B8F5071285C9410003D4CDF /* MyListsView.swift in Sources */,
+				4BF805992865E58C00DA2719 /* Codable + Extension.swift in Sources */,
 				4B780728286506FE005770C6 /* RecipeView.swift in Sources */,
 				4B2D1EE02864A7A7007E6FDB /* RenameView.swift in Sources */,
 				4B8F505F285BD1E3003D4CDF /* ProductListView.swift in Sources */,
@@ -442,6 +480,7 @@
 				4B8F507F285CA3C3003D4CDF /* AddProductView.swift in Sources */,
 				4B8F5081285CA3D4003D4CDF /* AddProductViewModel.swift in Sources */,
 				4B8F506B285BE6B3003D4CDF /* ProductRow.swift in Sources */,
+				4BF8059F2867AAAB00DA2719 /* Recipe+API.swift in Sources */,
 				4B8F5063285BD208003D4CDF /* ProductListCoordinator.swift in Sources */,
 				4B8F5094285FBDCC003D4CDF /* Products+API.swift in Sources */,
 				4B78072528650209005770C6 /* CategoryListView.swift in Sources */,
@@ -452,6 +491,7 @@
 				4B78071D2864B60C005770C6 /* NotificationName+Extension.swift in Sources */,
 				4B8F5096285FBE79003D4CDF /* NetworkClient.swift in Sources */,
 				4B7807202864EFD1005770C6 /* RecipesCategoryView.swift in Sources */,
+				4BF805A22868972100DA2719 /* SelectListView.swift in Sources */,
 				4B8F5073285C949A003D4CDF /* ListModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
