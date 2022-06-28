@@ -18,6 +18,7 @@ final class NetworkClient: NetworkClientProtocol, WebRepository {
     var session: URLSession = .shared
     
     var baseURL: String = "https://product-list-dev.herokuapp.com"
+//    var baseURL: String = "http://127.0.0.1:8080"
     
     let queue: DispatchQueue = .init(label: "Networking")
     

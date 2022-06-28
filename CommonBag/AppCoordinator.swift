@@ -58,6 +58,7 @@ final class AppCoordinator: NavigationCoordinatable {
     init(networking: NetworkClientProtocol) {
         self.networking = networking
         signIn()
+        updatePushToken()
     }
     
     func signIn() {
@@ -72,6 +73,17 @@ final class AppCoordinator: NavigationCoordinatable {
             API.authToken = response.token
         }
         .store(in: &cancellable)
+    }
+    
+    func updatePushToken() {
+        networking
+            .executeData(api: API.User.pushToken)
+            .sink { completion in
+                print(completion)
+            } receiveValue: { _ in
+                
+            }
+            .store(in: &cancellable)
     }
     
     func makeStart() -> RootCoordinator {
