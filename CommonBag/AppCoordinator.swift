@@ -32,7 +32,7 @@ final class RootCoordinator: TabCoordinatable {
     
     @ViewBuilder func makeHomeTab(isActive: Bool) -> some View {
         Image(systemName: "list.bullet.rectangle" + (isActive ? ".fill" : ""))
-        Text("Lists")
+        Text("Покупки")
     }
     
     func makeRecipes() -> NavigationViewCoordinator<RecipesCategoryCoordinator> {
@@ -41,7 +41,7 @@ final class RootCoordinator: TabCoordinatable {
     
     @ViewBuilder func makeTodosTab(isActive: Bool) -> some View {
         Image(systemName: "book" + (isActive ? ".fill" : ""))
-        Text("Todos")
+        Text("Рецепты")
     }
 }
 
@@ -58,7 +58,6 @@ final class AppCoordinator: NavigationCoordinatable {
     init(networking: NetworkClientProtocol) {
         self.networking = networking
         signIn()
-        updatePushToken()
     }
     
     func signIn() {
@@ -69,8 +68,9 @@ final class AppCoordinator: NavigationCoordinatable {
             case .finished:
                 self.root(\.start)
             }
-        } receiveValue: { response in
+        } receiveValue: { [weak self] response in
             API.authToken = response.token
+            self?.updatePushToken()
         }
         .store(in: &cancellable)
     }

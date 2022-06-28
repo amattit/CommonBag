@@ -49,6 +49,7 @@
 		4BF8059C2865E5B900DA2719 /* DTO.Recipes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF8059B2865E5B900DA2719 /* DTO.Recipes.swift */; };
 		4BF8059F2867AAAB00DA2719 /* Recipe+API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF8059E2867AAAB00DA2719 /* Recipe+API.swift */; };
 		4BF805A22868972100DA2719 /* SelectListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF805A12868972100DA2719 /* SelectListView.swift */; };
+		4BF805A4286B987E00DA2719 /* PushNotificationservice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF805A3286B987E00DA2719 /* PushNotificationservice.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -96,6 +97,7 @@
 		4BF8059B2865E5B900DA2719 /* DTO.Recipes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTO.Recipes.swift; sourceTree = "<group>"; };
 		4BF8059E2867AAAB00DA2719 /* Recipe+API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Recipe+API.swift"; sourceTree = "<group>"; };
 		4BF805A12868972100DA2719 /* SelectListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectListView.swift; sourceTree = "<group>"; };
+		4BF805A3286B987E00DA2719 /* PushNotificationservice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationservice.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -327,6 +329,7 @@
 			children = (
 				4B8F5087285D1FD3003D4CDF /* ProductListService.swift */,
 				4B2D1EDC2864A06F007E6FDB /* RenameService.swift */,
+				4BF805A3286B987E00DA2719 /* PushNotificationservice.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -468,6 +471,7 @@
 				4B8F507D285CA3B9003D4CDF /* AddProductCoordinator.swift in Sources */,
 				4B8F5067285BE53B003D4CDF /* AppCoordinator.swift in Sources */,
 				4B8F5071285C9410003D4CDF /* MyListsView.swift in Sources */,
+				4BF805A4286B987E00DA2719 /* PushNotificationservice.swift in Sources */,
 				4BF805992865E58C00DA2719 /* Codable + Extension.swift in Sources */,
 				4B780728286506FE005770C6 /* RecipeView.swift in Sources */,
 				4B2D1EE02864A7A7007E6FDB /* RenameView.swift in Sources */,
@@ -622,7 +626,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = CommonBag/CommonBag.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"CommonBag/Preview Content\"";
 				DEVELOPMENT_TEAM = 8FR82B7BH7;
 				ENABLE_PREVIEWS = YES;
@@ -654,7 +658,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = CommonBag/CommonBag.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"CommonBag/Preview Content\"";
 				DEVELOPMENT_TEAM = 8FR82B7BH7;
 				ENABLE_PREVIEWS = YES;

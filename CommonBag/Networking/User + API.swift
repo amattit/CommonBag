@@ -55,7 +55,7 @@ extension API {
                     let pushToken = UserDefaults.standard.string(forKey: "push-token"),
                     let uid = UIDevice.current.identifierForVendor?.uuidString
                 else {
-                    return nil
+                    throw NSError(domain: "a", code: 1)
                 }
                 let dto = DTO.UpdatePushTokenRq(
                     uid: uid,

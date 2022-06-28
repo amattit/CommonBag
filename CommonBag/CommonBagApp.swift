@@ -25,40 +25,15 @@ struct CommonBagApp: App {
 }
 
 class AppDelegate: NSObject, UIApplicationDelegate {
+    let notificationService = PushNotificationService()
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-        print("Your code here")
-        registerForPushNotification()
-        UNUserNotificationCenter.current().delegate = self
+        notificationService.registerForPushNotification()
         return true
     }
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         let deviceTokenString = deviceToken.map { String(format: "%02x", $0) }.joined()
         UserDefaults.standard.set(deviceTokenString, forKey: "push-token")
-    }
-    
-    func registerForPushNotification() {
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { [weak self] granted, error in
-            if granted {
-                self?.getNotificationSettings()
-            }
-        }
-    }
-    
-    func getNotificationSettings() {
-      UNUserNotificationCenter.current().getNotificationSettings { settings in
-        print("Notification settings: \(settings)")
-          guard settings.authorizationStatus == .authorized else { return }
-          DispatchQueue.main.async {
-            UIApplication.shared.registerForRemoteNotifications()
-          }
-      }
-    }
-    
-}
-
-extension AppDelegate: UNUserNotificationCenterDelegate {
-    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification) async -> UNNotificationPresentationOptions {
-        return [.sound, .badge, .banner]
     }
 }
