@@ -37,6 +37,7 @@ struct MyListsView: View {
             }
             .padding()
         }
+        .modifier(StateModifier(state: $viewModel.viewState))
         .navigationTitle("Мои списки")
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {

@@ -45,6 +45,7 @@
 		4B8F5096285FBE79003D4CDF /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8F5095285FBE79003D4CDF /* NetworkClient.swift */; };
 		4B8F5098285FCA7B003D4CDF /* DTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8F5097285FCA7B003D4CDF /* DTO.swift */; };
 		4B8F509B28604DF4003D4CDF /* ShareSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8F509A28604DF4003D4CDF /* ShareSheetView.swift */; };
+		4BBB37DD286F16C20022BE4C /* ErrorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BBB37DC286F16C20022BE4C /* ErrorModel.swift */; };
 		4BF805992865E58C00DA2719 /* Codable + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF805982865E58C00DA2719 /* Codable + Extension.swift */; };
 		4BF8059C2865E5B900DA2719 /* DTO.Recipes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF8059B2865E5B900DA2719 /* DTO.Recipes.swift */; };
 		4BF8059F2867AAAB00DA2719 /* Recipe+API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF8059E2867AAAB00DA2719 /* Recipe+API.swift */; };
@@ -93,6 +94,7 @@
 		4B8F509A28604DF4003D4CDF /* ShareSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheetView.swift; sourceTree = "<group>"; };
 		4B8F509C28605568003D4CDF /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		4B8F509D2861D766003D4CDF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		4BBB37DC286F16C20022BE4C /* ErrorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorModel.swift; sourceTree = "<group>"; };
 		4BF805982865E58C00DA2719 /* Codable + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Codable + Extension.swift"; sourceTree = "<group>"; };
 		4BF8059B2865E5B900DA2719 /* DTO.Recipes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTO.Recipes.swift; sourceTree = "<group>"; };
 		4BF8059E2867AAAB00DA2719 /* Recipe+API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Recipe+API.swift"; sourceTree = "<group>"; };
@@ -269,6 +271,7 @@
 		4B8F506C285BE6D7003D4CDF /* Modifiers */ = {
 			isa = PBXGroup;
 			children = (
+				4BBB37DB286F16B40022BE4C /* Error */,
 				4B8F506D285BE6E6003D4CDF /* AddActionModifier.swift */,
 			);
 			path = Modifiers;
@@ -354,6 +357,14 @@
 				4B8F509A28604DF4003D4CDF /* ShareSheetView.swift */,
 			);
 			path = Share;
+			sourceTree = "<group>";
+		};
+		4BBB37DB286F16B40022BE4C /* Error */ = {
+			isa = PBXGroup;
+			children = (
+				4BBB37DC286F16C20022BE4C /* ErrorModel.swift */,
+			);
+			path = Error;
 			sourceTree = "<group>";
 		};
 		4BF8059A2865E5AA00DA2719 /* Models */ = {
@@ -488,6 +499,7 @@
 				4B8F5063285BD208003D4CDF /* ProductListCoordinator.swift in Sources */,
 				4B8F5094285FBDCC003D4CDF /* Products+API.swift in Sources */,
 				4B78072528650209005770C6 /* CategoryListView.swift in Sources */,
+				4BBB37DD286F16C20022BE4C /* ErrorModel.swift in Sources */,
 				4B8F507A285CA215003D4CDF /* MyListRow.swift in Sources */,
 				4B2D1ED62863888F007E6FDB /* ProductSuggestView.swift in Sources */,
 				4B8F504D285BD055003D4CDF /* CommonBagApp.swift in Sources */,

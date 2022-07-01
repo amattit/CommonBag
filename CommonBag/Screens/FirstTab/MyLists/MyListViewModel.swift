@@ -12,6 +12,7 @@ import Combine
 final class MyListsViewModel: ObservableObject {
     @RouterObject var router: NavigationRouter<MyListsCoordinator>?
     @Published var lists: [ListModel] = []
+    @Published var viewState: Loadable = .idle
     let networkClient: NetworkClientProtocol
     var disposables = Set<AnyCancellable>()
     
@@ -34,14 +35,15 @@ final class MyListsViewModel: ObservableObject {
     
     ///  Загрузка списков
     func load() {
+        self.viewState = .loading
         networkClient
             .execute(api: API.List.getAll, type: [DTO.ListRs].self)
             .sink { completion in
                 switch completion {
                 case .finished:
-                    break
+                    self.viewState = .loaded
                 case .failure(let error):
-                    print(error.localizedDescription)
+                    self.viewState = .error(ErrorModel(error: error, action: self.load))
                 }
             } receiveValue: { response in
                 self.lists = response.map {
@@ -59,9 +61,9 @@ final class MyListsViewModel: ObservableObject {
             .sink { completion in
                 switch completion {
                 case .finished:
-                    break
+                    self.viewState = .loaded
                 case .failure(let error):
-                    print(error.localizedDescription)
+                    self.viewState = .error(ErrorModel(error: error, action: self.load))
                 }
             } receiveValue: { response in
                 self.lists = response.map {

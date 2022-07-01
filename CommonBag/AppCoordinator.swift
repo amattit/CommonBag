@@ -61,18 +61,23 @@ final class AppCoordinator: NavigationCoordinatable {
     }
     
     func signIn() {
-        networking.execute(api: API.Auth.signin, type: API.Auth.AuthRs.self).sink { completion in
-            switch completion {
-            case .failure(let error):
-                print(error.localizedDescription)
-            case .finished:
-                self.root(\.start)
+        if API.authToken != "" {
+            networking.execute(api: API.Auth.signin, type: API.Auth.AuthRs.self).sink { completion in
+                switch completion {
+                case .failure(let error):
+                    print(error.localizedDescription)
+                case .finished:
+                    self.root(\.start)
+                }
+            } receiveValue: { [weak self] response in
+                API.authToken = response.token
+                self?.updatePushToken()
             }
-        } receiveValue: { [weak self] response in
-            API.authToken = response.token
-            self?.updatePushToken()
+            .store(in: &cancellable)
+        } else {
+            self.root(\.start)
+            self.updatePushToken()
         }
-        .store(in: &cancellable)
     }
     
     func updatePushToken() {
