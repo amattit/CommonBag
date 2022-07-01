@@ -61,11 +61,11 @@ final class AppCoordinator: NavigationCoordinatable {
     }
     
     func signIn() {
-        if API.authToken != "" {
+        if API.authToken == "" {
             networking.execute(api: API.Auth.signin, type: API.Auth.AuthRs.self).sink { completion in
                 switch completion {
-                case .failure(let error):
-                    print(error.localizedDescription)
+                case .failure:
+                    self.signIn()
                 case .finished:
                     self.root(\.start)
                 }
@@ -75,8 +75,10 @@ final class AppCoordinator: NavigationCoordinatable {
             }
             .store(in: &cancellable)
         } else {
-            self.root(\.start)
-            self.updatePushToken()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+                self.root(\.start)
+                self.updatePushToken()
+            }
         }
     }
     
