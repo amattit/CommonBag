@@ -126,11 +126,11 @@ struct ProductListView_Preview: PreviewProvider {
     static var previews: some View {
         Group {
             NavigationView {
-                ProductListView(viewModel: .init(list: .mock, networkClient: NetworkClient()))
+                ProductListView(viewModel: .init(list: .mock, networkClient: NetworkClient(), userService: UserService(networkClient: NetworkClient())))
             }
             
             NavigationView {
-                ProductListView(viewModel: .init(list: .mockEmpty, networkClient: NetworkClient()))
+                ProductListView(viewModel: .init(list: .mock, networkClient: NetworkClient(), userService: UserService(networkClient: NetworkClient())))
             }
             .environment(\.colorScheme, .dark)
         }

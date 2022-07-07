@@ -16,15 +16,22 @@ final class ProductListCoordinator: NavigationCoordinatable {
     @Route(.modal) var share = makeShareToken
     @Route(.modal) var rename = makeRenameList
     @Route(.modal) var renameProduct = makeRenameProduct
+    @Route(.modal) var profile = makeUserProfile
     
     let serviceLocator: ServiceLocatorProtocol
     let list: ListModel
-    
     let viewModel: ProductListViewModel
+    let userService: UserService?
+    
     init(list: ListModel, serviceLocator: ServiceLocatorProtocol) {
         self.serviceLocator = serviceLocator
+        self.userService = serviceLocator.getService()
         self.list = list
-        self.viewModel = .init(list: list, networkClient: serviceLocator.getService())
+        self.viewModel = .init(
+            list: list,
+            networkClient: serviceLocator.getService(),
+            userService: serviceLocator.getService()
+        )
     }
     
     @ViewBuilder func makeStart() -> some View {
@@ -53,6 +60,24 @@ final class ProductListCoordinator: NavigationCoordinatable {
                 uid: list.id,
                 renameService: renameService,
                 completion: nil
+            )
+        )
+    }
+    
+    func makeUserProfile(completion: @escaping () -> Void) -> NavigationViewCoordinator<RenameCoordinator> {
+        let renameService: UsernameRenameService? = serviceLocator.getService()
+        return NavigationViewCoordinator(
+            RenameCoordinator(
+                currentName: userService?.user?.username ?? "",
+                title: "Введите имя",
+                subTitle: "Под этим именем вас будут видеть пользователи с которыми вы делитесь списками покупок",
+                uid: nil,
+                renameService: renameService,
+                completion: {
+                    self.userService?.loadUser {
+                        completion()
+                    }
+                }
             )
         )
     }

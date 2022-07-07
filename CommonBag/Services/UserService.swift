@@ -20,7 +20,7 @@ final class UserService {
         loadUser()
     }
     
-    func loadUser() {
+    func loadUser(completion: (() -> Void)? = nil) {
         networkClient?
             .execute(api: API.User.me, type: DTO.Profile.self)
             .sink { completion in
@@ -32,6 +32,7 @@ final class UserService {
                 }
             } receiveValue: { responseProfile in
                 self.user = responseProfile
+                completion?()
             }
             .store(in: &disposables)
     }

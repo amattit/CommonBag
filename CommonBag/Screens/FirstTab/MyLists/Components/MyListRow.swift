@@ -41,12 +41,11 @@ struct MyListRow: View {
     
     private var profile: String {
         if let profile = item.profile,
-            let username = profile.username,
-            let acronym = username.first?.description {
-            if acronym.isEmpty {
+            let username = profile.username {
+            if username.isEmpty {
                 return "N/A"
             } else {
-                return acronym
+                return username
             }
         } else {
             return "N/A"

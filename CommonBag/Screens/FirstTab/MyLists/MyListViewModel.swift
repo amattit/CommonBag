@@ -70,7 +70,7 @@ final class MyListsViewModel: ObservableObject {
                 }
             } receiveValue: { response in
                 let allLists = response.map {
-                    ListModel(id: $0.id, title: $0.title, description: $0.count, isOwn: $0.isOwn, isShared: $0.isShared)
+                    ListModel(id: $0.id, title: $0.title, description: $0.count, isOwn: $0.isOwn, isShared: $0.isShared, profile: $0.profile)
                 }
                 self.lists = allLists.filter({ $0.isOwn == true })
                 self.notMyLists = allLists.filter({ $0.isOwn == false })

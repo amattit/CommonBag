@@ -16,6 +16,7 @@ final class ProductListViewModel: ObservableObject {
     let list: ListModel
     @Published var newListName = ""
     let networkClient: NetworkClientProtocol?
+    let userService: UserService?
     
     var disposables = Set<AnyCancellable>()
     
@@ -23,10 +24,11 @@ final class ProductListViewModel: ObservableObject {
         "1.square"
     }
     
-    init(list: ListModel, networkClient: NetworkClientProtocol?) {
+    init(list: ListModel, networkClient: NetworkClientProtocol?, userService: UserService?) {
         self.networkClient = networkClient
         self.list = list
         self.newListName = list.title
+        self.userService = userService
         bind()
         load()
     }
@@ -110,18 +112,22 @@ final class ProductListViewModel: ObservableObject {
     }
     
     func getShareToken() {
-        networkClient?
-            .execute(api: API.List.getShareToken(list.id), type: DTO.ShareTokenRs.self)
-            .receive(on: DispatchQueue.main)
-            .sink { completion in
-                if case let .failure(error) = completion {
-                    print(error.localizedDescription)
+        if let username = userService?.user?.username, !username.isEmpty {
+            networkClient?
+                .execute(api: API.List.getShareToken(list.id), type: DTO.ShareTokenRs.self)
+                .receive(on: DispatchQueue.main)
+                .sink { completion in
+                    if case let .failure(error) = completion {
+                        print(error.localizedDescription)
+                    }
+                } receiveValue: { response in
+                    guard let url = URL(string: "https://product-list-dev.herokuapp.com/list/token/\(response.token)") else { return }
+                    self.router?.route(to: \.share, url)
                 }
-            } receiveValue: { response in
-                guard let url = URL(string: "https://product-list-dev.herokuapp.com/list/token/\(response.token)") else { return }
-                self.router?.route(to: \.share, url)
-            }
-            .store(in: &disposables)
+                .store(in: &disposables)
+        } else {
+            self.router?.route(to: \.profile, getShareToken)
+        }
     }
     
     private func deleteFromMade(_ product: ProductModel) {
