@@ -17,6 +17,9 @@ struct DTO {
         let id: UUID
         let title: String
         let count: String
+        var isOwn: Bool?
+        var isShared: Bool?
+        var profile: Profile?
     }
     
     struct CreateProductRq: Codable {
@@ -38,13 +41,13 @@ struct DTO {
         let os: String
     }
     
-    struct Profile: Codable {
+    struct Profile: Codable, Hashable {
         let id: UUID
         let devices: [Device]
         let username: String?
     }
     
-    struct Device: Codable {
+    struct Device: Codable, Hashable {
         let uid: String
         let pushToken: String?
         let os: String

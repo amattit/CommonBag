@@ -12,17 +12,36 @@ struct MyListsView: View {
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
             List {
-                ForEach(viewModel.lists) { item in
-                    Button(action: {viewModel.showProductList(item)}) {
-                        MyListRow(item: item)
-                    }
-                    .swipeActions {
-                        Button(action: {
-                            viewModel.delete(item)
-                        }) {
-                            Image(systemName: "trash")
+                Section("Мои") {
+                    ForEach(viewModel.lists) { item in
+                        Button(action: {viewModel.showProductList(item)}) {
+                            MyListRow(item: item)
                         }
-                        .tint(.red)
+                        .swipeActions {
+                            Button(action: {
+                                viewModel.delete(item)
+                            }) {
+                                Image(systemName: "trash")
+                            }
+                            .tint(.red)
+                        }
+                    }
+                }
+                if !viewModel.notMyLists.isEmpty {
+                    Section("Поделились") {
+                        ForEach(viewModel.notMyLists) { item in
+                            Button(action: {viewModel.showProductList(item)}) {
+                                MyListRow(item: item)
+                            }
+                            .swipeActions {
+                                Button(action: {
+                                    viewModel.delete(item)
+                                }) {
+                                    Image(systemName: "trash")
+                                }
+                                .tint(.red)
+                            }
+                        }
                     }
                 }
             }
@@ -38,7 +57,7 @@ struct MyListsView: View {
             .padding()
         }
         .modifier(StateModifier(state: $viewModel.viewState))
-        .navigationTitle("Мои списки")
+        .navigationTitle("Cписки")
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 HStack {

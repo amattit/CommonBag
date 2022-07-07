@@ -12,6 +12,7 @@ import Combine
 final class MyListsViewModel: ObservableObject {
     @RouterObject var router: NavigationRouter<MyListsCoordinator>?
     @Published var lists: [ListModel] = []
+    @Published var notMyLists: [ListModel] = []
     @Published var viewState: Loadable = .idle
     let networkClient: NetworkClientProtocol
     var disposables = Set<AnyCancellable>()
@@ -46,9 +47,11 @@ final class MyListsViewModel: ObservableObject {
                     self.viewState = .error(ErrorModel(error: error, action: self.load))
                 }
             } receiveValue: { response in
-                self.lists = response.map {
-                    ListModel(id: $0.id, title: $0.title, description: $0.count)
+                let allLists = response.map {
+                    ListModel(id: $0.id, title: $0.title, description: $0.count, isOwn: $0.isOwn, isShared: $0.isShared, profile: $0.profile)
                 }
+                self.lists = allLists.filter({ $0.isOwn == true })
+                self.notMyLists = allLists.filter({ $0.isOwn == false })
                 self.next()
             }
             .store(in: &disposables)
@@ -66,9 +69,11 @@ final class MyListsViewModel: ObservableObject {
                     self.viewState = .error(ErrorModel(error: error, action: self.load))
                 }
             } receiveValue: { response in
-                self.lists = response.map {
-                    ListModel(id: $0.id, title: $0.title, description: $0.count)
+                let allLists = response.map {
+                    ListModel(id: $0.id, title: $0.title, description: $0.count, isOwn: $0.isOwn, isShared: $0.isShared)
                 }
+                self.lists = allLists.filter({ $0.isOwn == true })
+                self.notMyLists = allLists.filter({ $0.isOwn == false })
             }
             .store(in: &disposables)
     }

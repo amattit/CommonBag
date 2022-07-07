@@ -11,6 +11,9 @@ struct ListModel: Identifiable, Hashable {
     let id: UUID
     let title: String
     var description: String
+    var isOwn: Bool?
+    var isShared: Bool?
+    var profile: DTO.Profile?
     
     static let mock: ListModel = .init(id: UUID(), title: "Список покупок", description: "Поимодры, Огурцы, Шоколад, Картофель, Макароны, Колбаса вареная, Сыр, Сыр плавленный, Блинчики, Арбуз, яблоки")
     static let mockEmpty: ListModel = .init(id: UUID(), title: "Жопа бобра", description: "")
