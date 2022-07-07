@@ -34,6 +34,7 @@ struct AddProductView: View {
                 Color.primary.opacity(0.06)
             )
         }
+        .modifier(StateModifier(state: $viewModel.viewState))
         
     }
     

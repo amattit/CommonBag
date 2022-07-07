@@ -48,7 +48,7 @@ struct ProductListView: View {
                         .tint(.red)
                         
                         Button(action: {
-                            // TODO: Показать редактирование
+                            viewModel.renameProduct(product)
                         }) {
                             Image(systemName: "pencil")
                         }

@@ -144,6 +144,10 @@ final class ProductListViewModel: ObservableObject {
         router?.route(to: \.rename, list)
     }
     
+    func renameProduct(_ product: ProductModel) {
+        router?.route(to: \.renameProduct, product)
+    }
+    
     func bind() {
         NotificationCenter.default.publisher(for: .reloadLists).sink { _ in
         } receiveValue: { _ in

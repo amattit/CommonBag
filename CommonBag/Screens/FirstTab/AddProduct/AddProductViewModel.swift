@@ -13,8 +13,8 @@ import UIKit
 final class AddProductViewModel: ObservableObject {
     @RouterObject var router: NavigationRouter<AddProductCoordinator>?
     @Published var input: String = ""
-    
     @Published var upcomingProducts: [ProductModel]
+    @Published var viewState: Loadable = .loaded
     let list: ListModel
     let networkClient: NetworkClientProtocol
     var disposables = Set<AnyCancellable>()
@@ -42,13 +42,8 @@ final class AddProductViewModel: ObservableObject {
                 return nil
             }
         self.upcomingProducts.append(contentsOf: items)
-        for model in items {
-            create(model)
-        }
-        // TODO: 
-//        self.service.addProduct(to: list, products: items)
+        create(items)
         self.input = ""
-        print(items)
     }
     
     func addCountDivider() {
@@ -60,18 +55,20 @@ final class AddProductViewModel: ObservableObject {
         router?.dismissCoordinator(router?.coordinator.completion)
     }
     
-    private func create(_ model: ProductModel) {
+    private func create(_ models: [ProductModel]) {
+        self.viewState = .loading
         networkClient
-            .execute(api: API.Products.create(list, model), type: DTO.ProductRs.self)
+            .execute(api: API.Products.massCreate(list, models), type: [DTO.ProductRs].self)
             .sink { completion in
                 switch completion {
                 case .failure(let error):
-                    print(error.localizedDescription)
+                    self.viewState = .error(ErrorModel(error: error, action: {
+                        self.create(models)
+                    }))
                 case .finished:
-                    break
+                    self.viewState = .loaded
                 }
             } receiveValue: { dto in
-                print(dto)
             }
             .store(in: &disposables)
 

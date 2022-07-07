@@ -15,6 +15,7 @@ final class ProductListCoordinator: NavigationCoordinatable {
     @Route(.fullScreen) var add = makeAddProduct
     @Route(.modal) var share = makeShareToken
     @Route(.modal) var rename = makeRenameList
+    @Route(.modal) var renameProduct = makeRenameProduct
     
     let list: ListModel
     let networkClient: NetworkClientProtocol
@@ -43,5 +44,20 @@ final class ProductListCoordinator: NavigationCoordinatable {
     
     func makeRenameList(list: ListModel) -> NavigationViewCoordinator<RenameCoordinator> {
         NavigationViewCoordinator(RenameCoordinator(currentName: list.title, title: "Новое имя", subTitle: "Чтобы проще ориентироваться в списках продуктов", uid: list.id, renameService: ProductListRenameService(networkClient: networkClient), completion: nil))
+    }
+    
+    func makeRenameProduct(product: ProductModel) -> NavigationViewCoordinator<RenameCoordinator>  {
+        NavigationViewCoordinator(
+            RenameCoordinator(
+                currentName: product.title + ": " + product.count,
+                title: "Изменение продукта",
+                subTitle: "Измените название продукта",
+                uid: product.id,
+                renameService: ProductRenameService(
+                    networkClient: networkClient
+                ),
+                completion: { self.viewModel.load() }
+            )
+        )
     }
 }

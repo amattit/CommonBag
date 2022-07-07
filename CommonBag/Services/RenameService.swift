@@ -79,3 +79,42 @@ final class UsernameRenameService: BaseRenameService {
             .eraseToAnyPublisher()
     }
 }
+
+final class ProductRenameService: BaseRenameService {
+    override func rename() -> AnyPublisher<Bool, Error> {
+        guard let title = title, let uid = uid else {
+            return Just(false)
+                .setFailureType(to: Error.self)
+                .eraseToAnyPublisher()
+        }
+        
+        let items = title
+            .split(separator: ",")
+            .map(String.init)
+            .map {
+                $0
+                    .split(separator: ":")
+                    .map(String.init)
+            }
+            .compactMap { item -> ProductModel? in
+                if let title = item.first, let count = item.last {
+                    return ProductModel(id: uid, title: title.trimmingCharacters(in: .whitespaces), count: title == count ? "" : count.trimmingCharacters(in: .whitespaces))
+                }
+                return nil
+            }
+        
+        guard let model = items.first else {
+            return Just(false)
+                .setFailureType(to: Error.self)
+                .eraseToAnyPublisher()
+        }
+        return networkClient.execute(api: API.Products.rename(model.id, model.title, model.count), type: DTO.ProductRs.self)
+            .map { item -> Bool in
+                if item.title == model.title {
+                    return true
+                }
+                return false
+            }
+            .eraseToAnyPublisher()
+    }
+}

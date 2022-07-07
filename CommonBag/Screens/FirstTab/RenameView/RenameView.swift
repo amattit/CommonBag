@@ -24,6 +24,7 @@ struct RenameView: View {
                 .padding(.top)
             Spacer()
         }
+        .modifier(StateModifier(state: $viewModel.viewState))
         .padding(.horizontal)
         .navigationTitle(viewModel.title)
         .toolbar {
@@ -48,6 +49,7 @@ struct RenameView_Preview: PreviewProvider {
 final class RenameViewModel: ObservableObject {
     @RouterObject var router: NavigationRouter<RenameCoordinator>?
     @Published var newName = ""
+    @Published var viewState: Loadable = .loaded
 
     let title: String
     let subTitle: String?
@@ -73,12 +75,15 @@ final class RenameViewModel: ObservableObject {
     }
     
     func apply() {
+        self.viewState = .loading
         renameService
             .setUid(uid)
             .setTitle(newName)
             .rename()
             .sink { completion in
-                print(completion)
+                if case let .failure(error) = completion {
+                    self.viewState = .error(ErrorModel(error: error, action: self.apply))
+                }
             } receiveValue: { success in
                 if success {
                     NotificationCenter.default.post(name: .reloadLists, object: nil)
