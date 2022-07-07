@@ -52,18 +52,18 @@ final class CategoryListViewModel: ObservableObject {
     @Published var recipes: [DTO.RecipeRs] = []
     let category: DTO.CategoryRs
     
-    let networking: NetworkClientProtocol
+    let networking: NetworkClientProtocol?
     
     private var disposables = Set<AnyCancellable>()
     
-    init(category: DTO.CategoryRs, networking: NetworkClientProtocol) {
+    init(category: DTO.CategoryRs, networking: NetworkClientProtocol?) {
         self.networking = networking
         self.category = category
         load()
     }
 
     private func load() {
-        networking
+        networking?
             .execute(
                 api: API.Recipes.getRecipeInCategory(category.id),
                 type: [DTO.RecipeRs].self
@@ -93,18 +93,18 @@ final class CategoryListCoordinator: NavigationCoordinatable {
     
     let category: DTO.CategoryRs
     
-    let networking: NetworkClientProtocol
+    let serviceLocator: ServiceLocatorProtocol
     
-    init(category: DTO.CategoryRs, networking: NetworkClientProtocol) {
-        self.networking = networking
+    init(category: DTO.CategoryRs, serviceLocator: ServiceLocatorProtocol) {
+        self.serviceLocator = serviceLocator
         self.category = category
     }
     
     @ViewBuilder func makeStart() -> some View {
-        CategoryListView(viewModel: .init(category: category, networking: networking))
+        CategoryListView(viewModel: .init(category: category, networking: serviceLocator.getService()))
     }
     
     func makeRecipe(recipe: DTO.RecipeRs) -> NavigationViewCoordinator<RecipeCoordinator> {
-        NavigationViewCoordinator(RecipeCoordinator(category: category, recipe:  recipe, networking: networking))
+        NavigationViewCoordinator(RecipeCoordinator(category: category, recipe:  recipe, serviceLocator: serviceLocator))
     }
 }

@@ -53,17 +53,17 @@ final class SelectListViewModel: ObservableObject {
     @Published var selected: ListModel?
     
     let products: [DTO.RecipeProductRs]
-    let networking: NetworkClientProtocol
+    let networking: NetworkClientProtocol?
     var disposables = Set<AnyCancellable>()
     
-    init(products: [DTO.RecipeProductRs], networking: NetworkClientProtocol) {
+    init(products: [DTO.RecipeProductRs], networking: NetworkClientProtocol?) {
         self.networking = networking
         self.products = products
         self.loadLists()
     }
     
     private func loadLists() {
-        networking
+        networking?
             .execute(api: API.List.getAll, type: [DTO.ListRs].self)
             .receive(on: DispatchQueue.main)
             .sink { completion in
@@ -83,7 +83,8 @@ final class SelectListViewModel: ObservableObject {
         guard let list = selected else {
             return
         }
-        networking.executeData(api: API.Recipes.addProducsToList(list.id, products))
+        networking?
+            .executeData(api: API.Recipes.addProducsToList(list.id, products))
             .receive(on: DispatchQueue.main)
             .sink { completion in
                 print(completion)

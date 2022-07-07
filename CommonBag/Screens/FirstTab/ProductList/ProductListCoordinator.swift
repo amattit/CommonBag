@@ -17,13 +17,14 @@ final class ProductListCoordinator: NavigationCoordinatable {
     @Route(.modal) var rename = makeRenameList
     @Route(.modal) var renameProduct = makeRenameProduct
     
+    let serviceLocator: ServiceLocatorProtocol
     let list: ListModel
-    let networkClient: NetworkClientProtocol
+    
     let viewModel: ProductListViewModel
-    init(list: ListModel, networkClient: NetworkClientProtocol) {
-        self.networkClient = networkClient
+    init(list: ListModel, serviceLocator: ServiceLocatorProtocol) {
+        self.serviceLocator = serviceLocator
         self.list = list
-        self.viewModel = .init(list: list, networkClient: networkClient)
+        self.viewModel = .init(list: list, networkClient: serviceLocator.getService())
     }
     
     @ViewBuilder func makeStart() -> some View {
@@ -39,23 +40,32 @@ final class ProductListCoordinator: NavigationCoordinatable {
     }
     
     func makeAddProduct(upcomingProducts: [ProductModel]) -> AddProductCoordinator {
-        AddProductCoordinator(list: list, upcomingProducts: upcomingProducts, networkClient: networkClient, completion: viewModel.load)
+        AddProductCoordinator(list: list, upcomingProducts: upcomingProducts, serviceLocator: serviceLocator, completion: viewModel.load)
     }
     
     func makeRenameList(list: ListModel) -> NavigationViewCoordinator<RenameCoordinator> {
-        NavigationViewCoordinator(RenameCoordinator(currentName: list.title, title: "Новое имя", subTitle: "Чтобы проще ориентироваться в списках продуктов", uid: list.id, renameService: ProductListRenameService(networkClient: networkClient), completion: nil))
+        let renameService: ProductListRenameService? = serviceLocator.getService()
+        return NavigationViewCoordinator(
+            RenameCoordinator(
+                currentName: list.title,
+                title: "Новое имя",
+                subTitle: "Чтобы проще ориентироваться в списках продуктов",
+                uid: list.id,
+                renameService: renameService,
+                completion: nil
+            )
+        )
     }
     
     func makeRenameProduct(product: ProductModel) -> NavigationViewCoordinator<RenameCoordinator>  {
-        NavigationViewCoordinator(
+        let renameService: ProductRenameService? = serviceLocator.getService()
+        return NavigationViewCoordinator(
             RenameCoordinator(
                 currentName: product.title + ": " + product.count,
                 title: "Изменение продукта",
                 subTitle: "Измените название продукта",
                 uid: product.id,
-                renameService: ProductRenameService(
-                    networkClient: networkClient
-                ),
+                renameService: renameService,
                 completion: { self.viewModel.load() }
             )
         )

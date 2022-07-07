@@ -56,17 +56,17 @@ final class RecipesCategoryViewModel: ObservableObject {
     @RouterObject var router: NavigationRouter<RecipesCategoryCoordinator>?
     @Published var categories: [DTO.CategoryRs] = []
     
-    let networking: NetworkClientProtocol
+    let networking: NetworkClientProtocol?
     
     var disposables = Set<AnyCancellable>()
     
-    init(networking: NetworkClientProtocol) {
+    init(networking: NetworkClientProtocol?) {
         self.networking = networking
         load()
     }
     
     private func load() {
-        networking
+        networking?
             .execute(api: API.Recipes.getCategories, type: [DTO.CategoryRs].self)
             .receive(on: DispatchQueue.main)
             .sink { completion in
@@ -91,18 +91,18 @@ final class RecipesCategoryCoordinator: NavigationCoordinatable {
     @Root var start = makeStart
     @Route(.push) var category = makeCategory
     
-    let networking: NetworkClientProtocol
+    let serviceLocator: ServiceLocatorProtocol
     
-    init(networking: NetworkClientProtocol) {
-        self.networking = networking
+    init(serviceLocator: ServiceLocatorProtocol) {
+        self.serviceLocator = serviceLocator
     }
     
     @ViewBuilder
     func makeStart() -> some View {
-        RecipesCategoryView(viewModel: .init(networking: networking))
+        RecipesCategoryView(viewModel: .init(networking: serviceLocator.getService()))
     }
     
     func makeCategory(category: DTO.CategoryRs) -> CategoryListCoordinator {
-        CategoryListCoordinator(category: category, networking: networking)
+        CategoryListCoordinator(category: category, serviceLocator: serviceLocator)
     }
 }

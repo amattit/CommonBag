@@ -56,11 +56,11 @@ final class RecipeViewModel: ObservableObject {
     @RouterObject var router: NavigationRouter<RecipeCoordinator>?
     let category: DTO.CategoryRs
     @Published var recipe: DTO.RecipeRs
-    let networking: NetworkClientProtocol
+    let networking: NetworkClientProtocol?
     
     private var disposables = Set<AnyCancellable>()
     
-    init(category: DTO.CategoryRs, recipe: DTO.RecipeRs, networking: NetworkClientProtocol) {
+    init(category: DTO.CategoryRs, recipe: DTO.RecipeRs, networking: NetworkClientProtocol?) {
         self.recipe = recipe
         self.networking = networking
         self.category = category
@@ -68,7 +68,7 @@ final class RecipeViewModel: ObservableObject {
     }
 
     private func load() {
-        networking
+        networking?
             .execute(
                 api: API.Recipes.getRecipe(recipe.id),
                 type: DTO.RecipeRs.self
@@ -97,23 +97,23 @@ final class RecipeCoordinator: NavigationCoordinatable {
     
     let category: DTO.CategoryRs
     
-    let networking: NetworkClientProtocol
+    let serviceLocator: ServiceLocatorProtocol
     
     let recipe: DTO.RecipeRs
     
-    init(category: DTO.CategoryRs, recipe: DTO.RecipeRs, networking: NetworkClientProtocol) {
+    init(category: DTO.CategoryRs, recipe: DTO.RecipeRs, serviceLocator: ServiceLocatorProtocol) {
         self.recipe = recipe
-        self.networking = networking
+        self.serviceLocator = serviceLocator
         self.category = category
     }
     
     @ViewBuilder func makeStart() -> some View {
-        RecipeView(viewModel: .init(category: category, recipe: recipe, networking: networking))
+        RecipeView(viewModel: .init(category: category, recipe: recipe, networking: serviceLocator.getService()))
     }
     
     @ViewBuilder func makeSelectList(products: [DTO.RecipeProductRs]) -> some View {
         SelectListView(
-            viewModel: .init(products: products, networking: networking)
+            viewModel: .init(products: products, networking: serviceLocator.getService())
         )
     }
 }

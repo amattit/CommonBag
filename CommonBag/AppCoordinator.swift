@@ -19,15 +19,16 @@ final class RootCoordinator: TabCoordinatable {
     @Route(tabItem: makeHomeTab) var lists = makeHome
     @Route(tabItem: makeTodosTab) var recipe = makeRecipes
     
-    let networking: NetworkClientProtocol
+//    let networking: NetworkClientProtocol
+    let serviceLocator: ServiceLocatorProtocol
     var cancellable = Set<AnyCancellable>()
     
-    init(networking: NetworkClientProtocol) {
-        self.networking = networking
+    init(serviceLocator: ServiceLocatorProtocol) {
+        self.serviceLocator = serviceLocator
     }
     
     func makeHome() -> NavigationViewCoordinator<MyListsCoordinator> {
-        NavigationViewCoordinator(MyListsCoordinator(networkClient: networking))
+        NavigationViewCoordinator(MyListsCoordinator(serviceLocator: serviceLocator))
     }
     
     @ViewBuilder func makeHomeTab(isActive: Bool) -> some View {
@@ -36,7 +37,7 @@ final class RootCoordinator: TabCoordinatable {
     }
     
     func makeRecipes() -> NavigationViewCoordinator<RecipesCategoryCoordinator> {
-        return NavigationViewCoordinator(RecipesCategoryCoordinator(networking: networking))
+        return NavigationViewCoordinator(RecipesCategoryCoordinator(serviceLocator: serviceLocator))
     }
     
     @ViewBuilder func makeTodosTab(isActive: Bool) -> some View {
@@ -51,18 +52,20 @@ final class AppCoordinator: NavigationCoordinatable {
     @Root var start = makeStart
     @Root var load = makeLoad
     
-    let networking: NetworkClientProtocol// = NetworkClient()
+    let networking: NetworkClientProtocol?// = NetworkClient()
+    let serviceLocator: ServiceLocatorProtocol
     
     var cancellable = Set<AnyCancellable>()
     
-    init(networking: NetworkClientProtocol) {
-        self.networking = networking
+    init(serviceLocator: ServiceLocatorProtocol) {
+        self.serviceLocator = serviceLocator
+        self.networking = serviceLocator.getService()
         signIn()
     }
     
     func signIn() {
         if API.authToken == "" {
-            networking.execute(api: API.Auth.signin, type: API.Auth.AuthRs.self).sink { completion in
+            networking?.execute(api: API.Auth.signin, type: API.Auth.AuthRs.self).sink { completion in
                 switch completion {
                 case .failure:
                     self.signIn()
@@ -83,7 +86,7 @@ final class AppCoordinator: NavigationCoordinatable {
     }
     
     func updatePushToken() {
-        networking
+        networking?
             .executeData(api: API.User.pushToken)
             .sink { completion in
                 print(completion)
@@ -94,7 +97,7 @@ final class AppCoordinator: NavigationCoordinatable {
     }
     
     func makeStart() -> RootCoordinator {
-        RootCoordinator(networking: networking)
+        RootCoordinator(serviceLocator: serviceLocator)
     }
     
     @ViewBuilder
@@ -105,7 +108,7 @@ final class AppCoordinator: NavigationCoordinatable {
     func handleDeepLink(url: URL) {
         guard url.pathComponents.contains(where: { $0 == "token" }), let token = url.pathComponents.last, let uid = UUID(uuidString: token)
         else { return }
-        networking
+        networking?
             .execute(api: API.List.applyShareToken(uid),
                      type: DTO.ListRs.self)
             .receive(on: DispatchQueue.main)

@@ -16,10 +16,10 @@ final class AddProductViewModel: ObservableObject {
     @Published var upcomingProducts: [ProductModel]
     @Published var viewState: Loadable = .loaded
     let list: ListModel
-    let networkClient: NetworkClientProtocol
+    let networkClient: NetworkClientProtocol?
     var disposables = Set<AnyCancellable>()
     
-    init(networkClient: NetworkClientProtocol, list: ListModel, upcomingProducts: [ProductModel]) {
+    init(networkClient: NetworkClientProtocol?, list: ListModel, upcomingProducts: [ProductModel]) {
         self.upcomingProducts = upcomingProducts
         self.list = list
         self.networkClient = networkClient
@@ -57,7 +57,7 @@ final class AddProductViewModel: ObservableObject {
     
     private func create(_ models: [ProductModel]) {
         self.viewState = .loading
-        networkClient
+        networkClient?
             .execute(api: API.Products.massCreate(list, models), type: [DTO.ProductRs].self)
             .sink { completion in
                 switch completion {

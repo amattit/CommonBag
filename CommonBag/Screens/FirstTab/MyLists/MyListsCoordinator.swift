@@ -17,56 +17,44 @@ final class MyListsCoordinator: NavigationCoordinatable {
     @Route(.push) var productList = makeProductList
     @Route(.modal) var profile = makeUserProfile
     
-    var user: DTO.Profile?
+//    var user: DTO.Profile?
     
-    let networkClient: NetworkClientProtocol
+//    let networkClient: NetworkClientProtocol
+    let serviceLocator: ServiceLocatorProtocol
+    let userService: UserService?
     
     var disposables = Set<AnyCancellable>()
     
-    init(networkClient: NetworkClientProtocol) {
-        self.networkClient = networkClient
-        loadUser()
+    init(serviceLocator: ServiceLocatorProtocol) {
+        self.serviceLocator = serviceLocator
+        
+        self.userService = serviceLocator.getService()
+        self.userService?.loadUser()
+        
     }
 }
 
 extension MyListsCoordinator {
     @ViewBuilder
     func makeStart() -> some View {
-        MyListsView(viewModel: .init(networkClient: networkClient))
+        MyListsView(viewModel: .init(networkClient: serviceLocator.getService()))
     }
     
     func makeProductList(list: ListModel) -> ProductListCoordinator {
-        ProductListCoordinator(list: list, networkClient: networkClient)
+        ProductListCoordinator(list: list, serviceLocator: serviceLocator)
     }
     
     func makeUserProfile() -> NavigationViewCoordinator<RenameCoordinator> {
-        NavigationViewCoordinator(
+        let renameService: UsernameRenameService? = serviceLocator.getService()
+        return NavigationViewCoordinator(
             RenameCoordinator(
-                currentName: user?.username ?? "",
+                currentName: userService?.user?.username ?? "",
                 title: "Введите имя",
                 subTitle: "Под этим именем вас будут видеть пользователи с которыми вы делитесь списками покупок",
                 uid: nil,
-                renameService: UsernameRenameService(networkClient: networkClient),
-                completion: loadUser
+                renameService: renameService,
+                completion: { self.userService?.loadUser() }
             )
         )
-    }
-}
-
-extension MyListsCoordinator {
-    func loadUser() {
-        networkClient
-            .execute(api: API.User.me, type: DTO.Profile.self)
-            .sink { completion in
-                switch completion {
-                case .finished:
-                    break
-                case .failure(let error):
-                    print(error.localizedDescription)
-                }
-            } receiveValue: { responseProfile in
-                self.user = responseProfile
-            }
-            .store(in: &disposables)
     }
 }

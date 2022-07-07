@@ -14,7 +14,7 @@ final class MyListsViewModel: ObservableObject {
     @Published var lists: [ListModel] = []
     @Published var notMyLists: [ListModel] = []
     @Published var viewState: Loadable = .idle
-    let networkClient: NetworkClientProtocol
+    let networkClient: NetworkClientProtocol?
     var disposables = Set<AnyCancellable>()
     
     var lastViewedList: UUID? {
@@ -28,7 +28,7 @@ final class MyListsViewModel: ObservableObject {
         }
     }
     
-    init(networkClient: NetworkClientProtocol) {
+    init(networkClient: NetworkClientProtocol?) {
         self.networkClient = networkClient
         bind()
         load()
@@ -37,7 +37,7 @@ final class MyListsViewModel: ObservableObject {
     ///  Загрузка списков
     func load() {
         self.viewState = .loading
-        networkClient
+        networkClient?
             .execute(api: API.List.getAll, type: [DTO.ListRs].self)
             .sink { completion in
                 switch completion {
@@ -59,7 +59,7 @@ final class MyListsViewModel: ObservableObject {
     
     ///  Обновление списков
     func refresh() {
-        networkClient
+        networkClient?
             .execute(api: API.List.getAll, type: [DTO.ListRs].self)
             .sink { completion in
                 switch completion {
@@ -102,7 +102,7 @@ final class MyListsViewModel: ObservableObject {
     /// Создать список продуктов, а потом перейти к нему
     func addList() {
         let dto = ListModel(id: .init(), title: "Список продуктов", description: "")
-        networkClient
+        networkClient?
             .execute(api: API.List.create(dto), type: DTO.ListRs.self)
             .sink { completion in
                 switch completion {
@@ -121,7 +121,7 @@ final class MyListsViewModel: ObservableObject {
     
     /// Удаление списка продуктов
     func delete(_ model: ListModel) {
-        networkClient
+        networkClient?
             .executeData(api: API.List.delete(model))
             .receive(on: DispatchQueue.main)
             .sink { completion in

@@ -15,7 +15,7 @@ final class ProductListViewModel: ObservableObject {
     @Published var madeProducts: [ProductModel] = []
     let list: ListModel
     @Published var newListName = ""
-    let networkClient: NetworkClientProtocol
+    let networkClient: NetworkClientProtocol?
     
     var disposables = Set<AnyCancellable>()
     
@@ -23,7 +23,7 @@ final class ProductListViewModel: ObservableObject {
         "1.square"
     }
     
-    init(list: ListModel, networkClient: NetworkClientProtocol) {
+    init(list: ListModel, networkClient: NetworkClientProtocol?) {
         self.networkClient = networkClient
         self.list = list
         self.newListName = list.title
@@ -32,7 +32,7 @@ final class ProductListViewModel: ObservableObject {
     }
     
     func load() {
-        networkClient
+        networkClient?
             .execute(api: API.Products.getBy(list), type: [DTO.ProductRs].self)
             .map { items -> ([ProductModel], [ProductModel]) in
                 let upcomingProducts = items
@@ -59,7 +59,7 @@ final class ProductListViewModel: ObservableObject {
     }
     
     func setMade(_ product: ProductModel) {
-        networkClient
+        networkClient?
             .execute(api: API.Products.setMade(product), type: DTO.ProductRs.self)
             .receive(on: DispatchQueue.main)
             .sink { completion in
@@ -74,7 +74,7 @@ final class ProductListViewModel: ObservableObject {
     }
     
     func setUpcoming(_ product: ProductModel) {
-        networkClient
+        networkClient?
             .execute(api: API.Products.setUpcomming(product), type: DTO.ProductRs.self)
             .receive(on: DispatchQueue.main)
             .sink { completion in
@@ -89,7 +89,7 @@ final class ProductListViewModel: ObservableObject {
     }
     
     func delete(_ productModel: ProductModel) {
-        networkClient
+        networkClient?
             .executeData(api: API.Products.delete(productModel))
             .receive(on: DispatchQueue.main)
             .sink { completion in
@@ -110,7 +110,7 @@ final class ProductListViewModel: ObservableObject {
     }
     
     func getShareToken() {
-        networkClient
+        networkClient?
             .execute(api: API.List.getShareToken(list.id), type: DTO.ShareTokenRs.self)
             .receive(on: DispatchQueue.main)
             .sink { completion in
@@ -151,7 +151,7 @@ final class ProductListViewModel: ObservableObject {
     func bind() {
         NotificationCenter.default.publisher(for: .reloadLists).sink { _ in
         } receiveValue: { _ in
-            self.networkClient.execute(api: API.List.getAll, type: [DTO.ListRs].self)
+            self.networkClient?.execute(api: API.List.getAll, type: [DTO.ListRs].self)
                 .sink { _ in
                 } receiveValue: { lists in
                     if let title = lists.first(where: {

@@ -19,9 +19,9 @@ protocol RenameServiceProtocol {
 class BaseRenameService: RenameServiceProtocol {
     var title: String?
     var uid: UUID?
-    let networkClient: NetworkClientProtocol
+    let networkClient: NetworkClientProtocol?
     
-    internal init(networkClient: NetworkClientProtocol) {
+    internal init(networkClient: NetworkClientProtocol?) {
         self.networkClient = networkClient
     }
     
@@ -44,7 +44,10 @@ class BaseRenameService: RenameServiceProtocol {
 
 final class ProductListRenameService: BaseRenameService {
     override func rename() -> AnyPublisher<Bool, Error> {
-        guard let uid = uid, let title = title
+        guard
+            let uid = uid,
+            let title = title,
+            let networkClient = networkClient
         else {
             return Just(false)
                 .setFailureType(to: Error.self)
@@ -64,7 +67,8 @@ final class ProductListRenameService: BaseRenameService {
 
 final class UsernameRenameService: BaseRenameService {
     override func rename() -> AnyPublisher<Bool, Error> {
-        guard let title = title else {
+        guard let title = title,
+              let networkClient = networkClient else {
             return Just(false)
                 .setFailureType(to: Error.self)
                 .eraseToAnyPublisher()
@@ -82,7 +86,9 @@ final class UsernameRenameService: BaseRenameService {
 
 final class ProductRenameService: BaseRenameService {
     override func rename() -> AnyPublisher<Bool, Error> {
-        guard let title = title, let uid = uid else {
+        guard let title = title,
+              let uid = uid,
+              let networkClient = networkClient else {
             return Just(false)
                 .setFailureType(to: Error.self)
                 .eraseToAnyPublisher()

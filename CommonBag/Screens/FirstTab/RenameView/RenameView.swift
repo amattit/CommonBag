@@ -54,7 +54,7 @@ final class RenameViewModel: ObservableObject {
     let title: String
     let subTitle: String?
     let uid: UUID?
-    let renameService: RenameServiceProtocol
+    let renameService: RenameServiceProtocol?
     var disposables = Set<AnyCancellable>()
     let completion: (() -> Void)?
     
@@ -63,7 +63,7 @@ final class RenameViewModel: ObservableObject {
         currentName: String,
         title: String,
         subTitle: String?,
-        renameService: RenameServiceProtocol,
+        renameService: RenameServiceProtocol?,
         completion: (() -> Void)?
     ) {
         self.uid = uid
@@ -76,7 +76,7 @@ final class RenameViewModel: ObservableObject {
     
     func apply() {
         self.viewState = .loading
-        renameService
+        renameService?
             .setUid(uid)
             .setTitle(newName)
             .rename()
@@ -103,14 +103,14 @@ final class RenameCoordinator: NavigationCoordinatable {
     let title: String
     let subTitle: String?
     let completion: (() -> Void)?
-    let renameService: RenameServiceProtocol
+    let renameService: RenameServiceProtocol?
     
     init(
         currentName: String,
         title: String,
         subTitle: String?,
         uid: UUID?,
-        renameService: RenameServiceProtocol,
+        renameService: RenameServiceProtocol?,
         completion: (() -> Void)?
     ) {
         self.uid = uid

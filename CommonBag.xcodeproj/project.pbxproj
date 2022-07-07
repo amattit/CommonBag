@@ -12,6 +12,8 @@
 		4B2D1EDB2863C586007E6FDB /* User + API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2D1EDA2863C586007E6FDB /* User + API.swift */; };
 		4B2D1EDD2864A06F007E6FDB /* RenameService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2D1EDC2864A06F007E6FDB /* RenameService.swift */; };
 		4B2D1EE02864A7A7007E6FDB /* RenameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2D1EDF2864A7A7007E6FDB /* RenameView.swift */; };
+		4B5AE913287746A200C2AC95 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5AE912287746A200C2AC95 /* UserService.swift */; };
+		4B5AE915287747D700C2AC95 /* ServiceLocator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5AE914287747D700C2AC95 /* ServiceLocator.swift */; };
 		4B78071D2864B60C005770C6 /* NotificationName+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B78071C2864B60C005770C6 /* NotificationName+Extension.swift */; };
 		4B7807202864EFD1005770C6 /* RecipesCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B78071F2864EFD1005770C6 /* RecipesCategoryView.swift */; };
 		4B78072528650209005770C6 /* CategoryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B78072428650209005770C6 /* CategoryListView.swift */; };
@@ -60,6 +62,8 @@
 		4B2D1EDA2863C586007E6FDB /* User + API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User + API.swift"; sourceTree = "<group>"; };
 		4B2D1EDC2864A06F007E6FDB /* RenameService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenameService.swift; sourceTree = "<group>"; };
 		4B2D1EDF2864A7A7007E6FDB /* RenameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenameView.swift; sourceTree = "<group>"; };
+		4B5AE912287746A200C2AC95 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
+		4B5AE914287747D700C2AC95 /* ServiceLocator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceLocator.swift; sourceTree = "<group>"; };
 		4B78071C2864B60C005770C6 /* NotificationName+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationName+Extension.swift"; sourceTree = "<group>"; };
 		4B78071F2864EFD1005770C6 /* RecipesCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesCategoryView.swift; sourceTree = "<group>"; };
 		4B78072428650209005770C6 /* CategoryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryListView.swift; sourceTree = "<group>"; };
@@ -333,6 +337,8 @@
 				4B8F5087285D1FD3003D4CDF /* ProductListService.swift */,
 				4B2D1EDC2864A06F007E6FDB /* RenameService.swift */,
 				4BF805A3286B987E00DA2719 /* PushNotificationservice.swift */,
+				4B5AE912287746A200C2AC95 /* UserService.swift */,
+				4B5AE914287747D700C2AC95 /* ServiceLocator.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -475,6 +481,7 @@
 				4B8F508E285F7C29003D4CDF /* API.swift in Sources */,
 				4B2D1EDB2863C586007E6FDB /* User + API.swift in Sources */,
 				4B8F506E285BE6E6003D4CDF /* AddActionModifier.swift in Sources */,
+				4B5AE915287747D700C2AC95 /* ServiceLocator.swift in Sources */,
 				4B2D1EDD2864A06F007E6FDB /* RenameService.swift in Sources */,
 				4B8F5098285FCA7B003D4CDF /* DTO.swift in Sources */,
 				4B8F5092285FBCC4003D4CDF /* List+API.swift in Sources */,
@@ -508,6 +515,7 @@
 				4B8F5096285FBE79003D4CDF /* NetworkClient.swift in Sources */,
 				4B7807202864EFD1005770C6 /* RecipesCategoryView.swift in Sources */,
 				4BF805A22868972100DA2719 /* SelectListView.swift in Sources */,
+				4B5AE913287746A200C2AC95 /* UserService.swift in Sources */,
 				4B8F5073285C949A003D4CDF /* ListModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
