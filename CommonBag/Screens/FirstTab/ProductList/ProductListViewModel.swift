@@ -147,7 +147,7 @@ final class ProductListViewModel: ObservableObject {
     }
     
     func changeListTile() {
-        router?.route(to: \.rename, list)
+        router?.route(to: \.settings)
     }
     
     func renameProduct(_ product: ProductModel) {

@@ -41,7 +41,7 @@ struct DTO {
         let os: String
     }
     
-    struct Profile: Codable, Hashable {
+    struct Profile: Codable, Hashable, Identifiable {
         let id: UUID
         let devices: [Device]
         let username: String?

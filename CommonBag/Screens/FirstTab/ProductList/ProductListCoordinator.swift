@@ -17,6 +17,7 @@ final class ProductListCoordinator: NavigationCoordinatable {
     @Route(.modal) var rename = makeRenameList
     @Route(.modal) var renameProduct = makeRenameProduct
     @Route(.modal) var profile = makeUserProfile
+    @Route(.push) var settings = makeSettings
     
     let serviceLocator: ServiceLocatorProtocol
     let list: ListModel
@@ -94,5 +95,9 @@ final class ProductListCoordinator: NavigationCoordinatable {
                 completion: { self.viewModel.load() }
             )
         )
+    }
+    
+    func makeSettings() -> ProductListSettingsCoordinator {
+        ProductListSettingsCoordinator(serviceLocator: serviceLocator, list: list)
     }
 }
