@@ -41,10 +41,14 @@ struct DTO {
         let os: String
     }
     
-    struct Profile: Codable, Hashable, Identifiable {
+    struct Profile: Codable, Hashable, Identifiable, Equatable {
         let id: UUID
         let devices: [Device]
         let username: String?
+        
+        static func == (lhs: Profile, rhs: Profile) -> Bool {
+            return lhs.id == rhs.id
+        }
     }
     
     struct Device: Codable, Hashable {
@@ -60,5 +64,12 @@ struct DTO {
     
     struct SetUsernameRq: Codable {
         let username: String
+    }
+}
+
+extension DTO {
+    struct Settings: Codable {
+        let shareToken: [String]?
+        let users: [Profile]
     }
 }

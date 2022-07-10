@@ -24,7 +24,7 @@ struct RenameView: View {
                 .padding(.top)
             Spacer()
         }
-        .modifier(StateModifier(state: $viewModel.viewState))
+        .modifier(ViewStateModifier(state: $viewModel.viewState))
         .padding(.horizontal)
         .navigationTitle(viewModel.title)
         .toolbar {
@@ -49,7 +49,7 @@ struct RenameView_Preview: PreviewProvider {
 final class RenameViewModel: ObservableObject {
     @RouterObject var router: NavigationRouter<RenameCoordinator>?
     @Published var newName = ""
-    @Published var viewState: Loadable = .loaded
+    @Published var viewState: ViewState = .loaded
 
     let title: String
     let subTitle: String?

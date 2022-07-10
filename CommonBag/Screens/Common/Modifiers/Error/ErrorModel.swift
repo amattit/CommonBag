@@ -13,15 +13,15 @@ struct ErrorModel {
     let action: () -> Void
 }
 
-enum Loadable {
+enum ViewState {
     case idle
     case loading
     case loaded
     case error(ErrorModel)
 }
 
-struct StateModifier: ViewModifier {
-    @Binding var state: Loadable
+struct ViewStateModifier: ViewModifier {
+    @Binding var state: ViewState
     
     @ViewBuilder
     func body(content: Content) -> some View {

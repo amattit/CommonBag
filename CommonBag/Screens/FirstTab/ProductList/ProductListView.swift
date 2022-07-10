@@ -114,7 +114,7 @@ struct ProductListView: View {
                     }
                     
                     Button(action: viewModel.changeListTile) {
-                        Image(systemName: "pencil")
+                        Image(systemName: "gearshape")
                     }
                 }
             }

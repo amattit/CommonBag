@@ -56,17 +56,13 @@ struct MyListsView: View {
             }
             .padding()
         }
-        .modifier(StateModifier(state: $viewModel.viewState))
+        .modifier(ViewStateModifier(state: $viewModel.viewState))
         .navigationTitle("Cписки")
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 HStack {
                     Button(action: viewModel.showUserProfile) {
                         Image(systemName: "person")
-                    }
-                    
-                    Button(action: {}) {
-                        Image(systemName: "gear")
                     }
                 }
             }

@@ -13,7 +13,7 @@ final class MyListsViewModel: ObservableObject {
     @RouterObject var router: NavigationRouter<MyListsCoordinator>?
     @Published var lists: [ListModel] = []
     @Published var notMyLists: [ListModel] = []
-    @Published var viewState: Loadable = .idle
+    @Published var viewState: ViewState = .idle
     let networkClient: NetworkClientProtocol?
     var disposables = Set<AnyCancellable>()
     

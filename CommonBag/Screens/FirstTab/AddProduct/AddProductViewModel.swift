@@ -14,7 +14,7 @@ final class AddProductViewModel: ObservableObject {
     @RouterObject var router: NavigationRouter<AddProductCoordinator>?
     @Published var input: String = ""
     @Published var upcomingProducts: [ProductModel]
-    @Published var viewState: Loadable = .loaded
+    @Published var viewState: ViewState = .loaded
     let list: ListModel
     let networkClient: NetworkClientProtocol?
     var disposables = Set<AnyCancellable>()

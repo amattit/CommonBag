@@ -19,6 +19,12 @@ struct ProductListSettingsView: View {
             }
             .padding(.horizontal)
         }
+        .toolbar(content: {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button("Готово", action: viewModel.remane)
+                    .disabled(viewModel.doneButtonDisabled())
+            }
+        })
         .navigationBarTitleDisplayMode(.inline)
         .navigationTitle("Настройки")
     }
@@ -27,9 +33,7 @@ struct ProductListSettingsView: View {
 // Название списка покупок
 extension ProductListSettingsView {
     var titleView: some View {
-        TextField("Введите название", text: $viewModel.title) {
-            viewModel.remane()
-        }
+        TextField("Введите название", text: $viewModel.title)
         .textFieldStyle(.roundedBorder)
         .font(.title)
     }
@@ -47,14 +51,19 @@ extension ProductListSettingsView {
                     HStack {
                         Text(user.username ?? "N/A")
                         Spacer()
-                        if !isMe(user: user) {
+                        if !isMe(user: user) && (viewModel.list.isOwn ?? false) {
                             Button(action: {viewModel.deleteUser(user: user)}) {
                                 Image(systemName: "trash")
                             }
                         }
                     }
+                    .padding(.vertical, 4)
                 }
             }
+            .modifier(ViewStateModifier(state: $viewModel.viewState))
+        } else if !viewModel.shareToken.isEmpty {
+            Text("Когда, кто-то подключится к списку здесь будет отображаться все участники, которые могут работать с вашим списком покупок")
+                .foregroundColor(.secondary)
         }
     }
     
@@ -69,22 +78,63 @@ extension ProductListSettingsView {
     var shareLinkView: some View {
         if viewModel.shareToken.isEmpty {
             Button(action: viewModel.createShareToken) {
-                Text("Создать общую ссылку")
+                Text("Создать общую ссылку на список продуктов")
+                    .multilineTextAlignment(.leading)
             }
         } else {
-            HStack {
-                Text(viewModel.shareToken)
-                Button(action: {
-                    // todo copy link
-                }) {
-                    Image(systemName: "square.dashed")
+            VStack(alignment: .leading, spacing: 8) {
+                Text("Скопируйте ссылку и отправьте ее своей второй половинке или друзьям")
+                    .font(.callout)
+                ForEach(viewModel.shareToken, id: \.self) { token in
+                    VStack {
+                        HStack {
+                            Text(token)
+                                .font(.footnote)
+                                .foregroundColor(.secondary)
+                            Button(action: {
+                                viewModel.copy(url: token)
+                            }) {
+                                Image(systemName: "square.dashed.inset.filled")
+                            }
+                        }
+
+                        HStack {
+                            Button(action: { viewModel.share(token: token) }) {
+                                HStack {
+                                    Spacer()
+                                    Text("Поделиться")
+                                    Spacer()
+                                }
+                            }
+                            .padding(8)
+                            .background(
+                                Color.accentColor//.opacity(0.2)
+                            )
+                            .foregroundColor(.white)
+                            .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+                            
+                            if viewModel.list.isOwn ?? false {
+                                Button(action: viewModel.deleteShareToken) {
+                                    Image(systemName: "trash")
+                                }
+                                .padding(8)
+                                .accentColor(.red)
+                                .background(
+                                    Color.secondary.opacity(0.2)
+                                )
+                                .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+                            }
+                        }
+                        .padding(.horizontal, 8)
+                    }
+                    .padding()
+                    .background(
+                        Color.secondary.opacity(0.2)
+                    )
+                    .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
                 }
             }
-            .padding(4)
-            .background(
-                Color.secondary.opacity(0.2)
-            )
-            .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+            .modifier(ViewStateModifier(state: $viewModel.viewState))
         }
     }
 }
