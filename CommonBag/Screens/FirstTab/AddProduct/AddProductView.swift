@@ -35,6 +35,13 @@ struct AddProductView: View {
             )
         }
         .modifier(ViewStateModifier(state: $viewModel.viewState))
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: viewModel.showSuggests) {
+                    Text("Справочник")
+                }
+            }
+        }
         
     }
     

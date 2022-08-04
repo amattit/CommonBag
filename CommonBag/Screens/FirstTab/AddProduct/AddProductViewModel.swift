@@ -15,6 +15,7 @@ final class AddProductViewModel: ObservableObject {
     @Published var input: String = ""
     @Published var upcomingProducts: [ProductModel]
     @Published var viewState: ViewState = .loaded
+    @Published var suggests: [DTO.SuggestRs] = []
     let list: ListModel
     let networkClient: NetworkClientProtocol?
     var disposables = Set<AnyCancellable>()
@@ -53,6 +54,14 @@ final class AddProductViewModel: ObservableObject {
     func dismiss() {
         handleInput()
         router?.dismissCoordinator(router?.coordinator.completion)
+    }
+    
+    func showSuggests() {
+        router?.route(to: \.suggests)
+    }
+    
+    func addSuggests(_ suggests: [DTO.SuggestRs]) {
+        self.suggests = suggests
     }
     
     private func create(_ models: [ProductModel]) {

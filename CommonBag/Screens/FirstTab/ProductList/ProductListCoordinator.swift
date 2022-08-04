@@ -47,8 +47,8 @@ final class ProductListCoordinator: NavigationCoordinatable {
         }
     }
     
-    func makeAddProduct(upcomingProducts: [ProductModel]) -> AddProductCoordinator {
-        AddProductCoordinator(list: list, upcomingProducts: upcomingProducts, serviceLocator: serviceLocator, completion: viewModel.load)
+    func makeAddProduct(upcomingProducts: [ProductModel]) -> NavigationViewCoordinator<AddProductCoordinator> {
+        NavigationViewCoordinator(AddProductCoordinator(list: list, upcomingProducts: upcomingProducts, serviceLocator: serviceLocator, completion: viewModel.load))
     }
     
     func makeRenameList(list: ListModel) -> NavigationViewCoordinator<RenameCoordinator> {

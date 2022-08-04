@@ -73,3 +73,31 @@ extension DTO {
         let users: [Profile]
     }
 }
+
+extension DTO {
+    struct SuggestRs: Codable, Hashable, Identifiable {
+        let id: UUID
+        let title: String
+        let category: String
+        let color: String
+        var count: Double?
+        var mesureUnit: MesureUnit?; enum MesureUnit: CaseIterable, Identifiable, Hashable, Codable {
+            var id: Int {
+                hashValue
+            }
+            case kg, sht, gr, lit
+            var title: String {
+                switch self {
+                case .kg:
+                    return "кг"
+                case .sht:
+                    return "шт"
+                case .gr:
+                    return "гр"
+                case .lit:
+                    return "л"
+                }
+            }
+        }
+    }
+}
