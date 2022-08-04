@@ -9,9 +9,10 @@ import Foundation
 import Combine
 
 final class SuggestViewModel: ObservableObject {
-    @Published var suggests: [DTO.SuggestRs] = []
-//    @Published var visible: [DTO.SuggestRs] = []
+    var suggests: [DTO.SuggestRs] = []
+    @Published var visible: [DTO.SuggestRs] = []
     @Published var search = ""
+    @Published var selected = [DTO.SuggestRs]()
     
     let networkClient: NetworkClientProtocol?
     var disposables = Set<AnyCancellable>()
@@ -20,12 +21,24 @@ final class SuggestViewModel: ObservableObject {
     init(networkClient: NetworkClientProtocol?, completion: @escaping ([DTO.SuggestRs]) -> Void) {
         self.networkClient = networkClient
         self.completion = completion
-//        bind()
+        bind()
         load()
     }
     
-    func select(_ model: DTO.SuggestRs) {
+    func bind() {
+        $search.sink { value in
+            guard value.count > 1 else { return }
+            self.visible = self.suggests.filter({ item in
+                item.title.localizedCaseInsensitiveContains(value) || item.category.localizedCaseInsensitiveContains(value)
+            })
+        }
+        .store(in: &disposables)
         
+        $selected.sink { values in
+            print(values)
+            print(values.count)
+        }
+        .store(in: &disposables)
     }
     
     func check() {
@@ -34,21 +47,6 @@ final class SuggestViewModel: ObservableObject {
         }
         print(items)
     }
-    
-//    private func bind() {
-//        $search
-//            .receive(on: DispatchQueue.main)
-//            .sink { input in
-//                if input.isEmpty {
-//                    self.visible = self.suggests
-//                } else {
-//                    self.visible = self.suggests.filter({ suggest in
-//                        suggest.title.localizedCaseInsensitiveContains(input) || suggest.category.localizedCaseInsensitiveContains(input)
-//                    })
-//                }
-//        }
-//        .store(in: &disposables)
-//    }
     
     func load() {
         networkClient?

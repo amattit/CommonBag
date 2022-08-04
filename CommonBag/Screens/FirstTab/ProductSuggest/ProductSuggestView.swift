@@ -18,10 +18,8 @@ struct ProductSuggestView: View {
             Button(action: viewModel.check) {
                 Text("Проверить")
             }
-            ForEach($viewModel.suggests.filter({ item in
-                item.wrappedValue.title.localizedCaseInsensitiveContains(viewModel.search) || item.wrappedValue.category.localizedCaseInsensitiveContains(viewModel.search)
-            })) { model in
-                SuggestRow(model: model)
+            ForEach(viewModel.visible) { model in
+                SuggestRow(model: model, selected: $viewModel.selected)
             }
         }
         .listStyle(.plain)
@@ -30,8 +28,9 @@ struct ProductSuggestView: View {
 
 struct SuggestRow: View {
 //    let model: DTO.SuggestRs
-    @Binding var model: DTO.SuggestRs
-    
+    @State var model: DTO.SuggestRs
+    @Binding var selected: [DTO.SuggestRs]
+    @State var isAdded = false
     var body: some View {
         VStack {
             HStack {
@@ -46,20 +45,22 @@ struct SuggestRow: View {
                 countView
                 
             }
-            HStack {
-                ForEach(DTO.SuggestRs.MesureUnit.allCases) { mu in
-                    Button(action: {
-                        model.mesureUnit = mu
-                    }) {
-                        Text(mu.title)
-                            .padding(.horizontal)
+            if isAdded {
+                HStack {
+                    ForEach(DTO.SuggestRs.MesureUnit.allCases) { mu in
+                        Button(action: {
+                            model.mesureUnit = mu
+                        }) {
+                            Text(mu.title)
+                                .padding(.horizontal)
+                        }
+                        .accentColor(model.mesureUnit == mu ? .white : .primary)
+                        .background(
+                            model.mesureUnit == mu ? Color.blue : .clear
+                        )
+                        .buttonStyle(.borderless)
+                        .clipShape(RoundedRectangle(cornerRadius: 4, style: .continuous))
                     }
-                    .accentColor(model.mesureUnit == mu ? .white : .primary)
-                    .background(
-                        model.mesureUnit == mu ? Color.blue : .clear
-                    )
-                    .buttonStyle(.borderless)
-                    .clipShape(RoundedRectangle(cornerRadius: 4, style: .continuous))
                 }
             }
         }
@@ -67,9 +68,10 @@ struct SuggestRow: View {
     
     @ViewBuilder
     var countView: some View {
-        if model.count == nil {
+        if isAdded == false {
             Button(action: {
-                model.count = 1
+                increment()
+                isAdded = true
             }) {
                 Text("Добавить")
             }
@@ -94,22 +96,40 @@ struct SuggestRow: View {
     func increment() {
         guard model.count != nil else {
             model.count = 1
+            addToSelected()
             return
         }
         model.count? += 0.5
+        addToSelected()
     }
     
     func decrement() {
         if var count = model.count, count.rounded() > 0 {
             count -= 0.5
+            model.count = count
             if count.rounded() == 0 {
                 model.count = nil
+                isAdded = false
+                removeFromSelected()
             } else {
-                model.count = count
+                addToSelected()
             }
         } else {
             model.count = nil
+            isAdded = false
+            removeFromSelected()
         }
+    }
+    
+    func removeFromSelected() {
+        self.selected.removeAll { item in
+            item.id == model.id
+        }
+    }
+    
+    func addToSelected() {
+        selected.removeAll { $0.id == model.id }
+        selected.append(model)
     }
     
     var color: Color {
