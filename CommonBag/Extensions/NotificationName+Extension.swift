@@ -10,4 +10,5 @@ import SwiftUI
 
 extension Notification.Name {
     static let reloadLists = Notification.Name(rawValue: "reloadLists")
+    static let reloadProducts = Notification.Name(rawValue: "reloadProducts")
 }

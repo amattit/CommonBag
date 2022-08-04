@@ -38,7 +38,12 @@ final class AddProductViewModel: ObservableObject {
             .compactMap { item -> ProductModel? in
                 if let title = item.first, let count = item.last {
                     
-                    return ProductModel(id: UUID(), title: title.trimmingCharacters(in: .whitespaces), count: title == count ? "" : count.trimmingCharacters(in: .whitespaces))
+                    return ProductModel(
+                        id: UUID(),
+                        title: title.trimmingCharacters(in: .whitespaces),
+                        count: title == count ? "" : count.trimmingCharacters(in: .whitespaces),
+                        color: "red"
+                    )
                 }
                 return nil
             }

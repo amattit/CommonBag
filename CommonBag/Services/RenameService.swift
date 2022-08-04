@@ -104,7 +104,12 @@ final class ProductRenameService: BaseRenameService {
             }
             .compactMap { item -> ProductModel? in
                 if let title = item.first, let count = item.last {
-                    return ProductModel(id: uid, title: title.trimmingCharacters(in: .whitespaces), count: title == count ? "" : count.trimmingCharacters(in: .whitespaces))
+                    return ProductModel(
+                        id: uid,
+                        title: title.trimmingCharacters(in: .whitespaces),
+                        count: title == count ? "" : count.trimmingCharacters(in: .whitespaces),
+                        color: nil
+                    )
                 }
                 return nil
             }

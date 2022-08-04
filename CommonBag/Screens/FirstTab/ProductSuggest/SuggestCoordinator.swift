@@ -16,9 +16,9 @@ final class SuggestCoordinator: NavigationCoordinatable {
     let serviceLocator: ServiceLocatorProtocol
     let viewModel: SuggestViewModel
     
-    init(serviceLocator: ServiceLocatorProtocol, completion: @escaping ([DTO.SuggestRs]) -> Void) {
+    init(list: ListModel, serviceLocator: ServiceLocatorProtocol) {
         self.serviceLocator = serviceLocator
-        self.viewModel = .init(networkClient: serviceLocator.getService(), completion: completion)
+        self.viewModel = .init(list: list, networkClient: serviceLocator.getService())
     }
 }
 

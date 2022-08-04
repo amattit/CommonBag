@@ -61,15 +61,15 @@ extension API {
         func body() throws -> Data? {
             switch self {
             case .create(_, let productModel):
-                let dto = DTO.CreateProductRq(title: productModel.title, count: productModel.count, measureUnit: nil)
+                let dto = DTO.CreateProductRq(title: productModel.title, count: productModel.count, measureUnit: nil, color: productModel.color)
                 return try JSONEncoder().encode(dto)
             case .massCreate(_, let products):
                 let dto = products.map { productModel in
-                    DTO.CreateProductRq(title: productModel.title, count: productModel.count, measureUnit: nil)
+                    DTO.CreateProductRq(title: productModel.title, count: productModel.count, measureUnit: nil, color: productModel.color)
                 }
                 return try JSONEncoder().encode(dto)
             case .rename(_, let title, let count):
-                let dto = DTO.CreateProductRq(title: title, count: count, measureUnit: nil)
+                let dto = DTO.CreateProductRq(title: title, count: count, measureUnit: nil, color: nil)
                 return try JSONEncoder().encode(dto)
             default:
                 return nil

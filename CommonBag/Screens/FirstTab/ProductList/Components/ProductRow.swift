@@ -12,12 +12,34 @@ struct UpcomingProductRowView: View {
     
     var body: some View {
         HStack {
+            RoundedRectangle(cornerRadius: 4, style: .continuous).fill(color)
+                .frame(width: 4)
             Text(model.title)
             Spacer()
             Text(model.count)
                 .foregroundColor(.secondary)
         }
         .foregroundColor(.primary)
+        .padding(.trailing)
+    }
+    
+    var color: Color {
+        switch model.color {
+        case "red":
+            return .red
+        case "green":
+            return .green
+        case "blue":
+            return .blue
+        case "yellow":
+            return .yellow
+        case "pink":
+            return .pink
+        case "orange":
+            return .orange
+        default:
+            return .secondary
+        }
     }
 }
 

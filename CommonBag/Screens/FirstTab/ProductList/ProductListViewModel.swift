@@ -39,11 +39,11 @@ final class ProductListViewModel: ObservableObject {
             .map { items -> ([ProductModel], [ProductModel]) in
                 let upcomingProducts = items
                     .filter({ $0.isDone == false })
-                    .map { ProductModel(id: $0.id, title: $0.title, count: $0.count ?? "") }
+                    .map { ProductModel(id: $0.id, title: $0.title, count: $0.count ?? "", color: $0.color) }
                 
                 let madeProducts = items
                     .filter({ $0.isDone == true })
-                    .map { ProductModel(id: $0.id, title: $0.title, count: $0.count ?? "") }
+                    .map { ProductModel(id: $0.id, title: $0.title, count: $0.count ?? "", color: $0.color) }
                 
                 return (upcomingProducts, madeProducts)
             }
@@ -53,11 +53,32 @@ final class ProductListViewModel: ObservableObject {
                     print(error.localizedDescription)
                 }
             } receiveValue: { response in
-                self.upcomingProducts = response.0
+                self.upcomingProducts = response.0.sorted(by: { l, r in
+                    self.getPriority(l) < self.getPriority(r)
+                })
                 self.madeProducts = response.1
             }
             .store(in: &disposables)
 
+    }
+    
+    func getPriority(_ model: ProductModel) -> Int {
+            switch model.color {
+            case "red":
+                return 0
+            case "green":
+                return 1
+            case "blue":
+                return 2
+            case "yellow":
+                return 3
+            case "pink":
+                return 4
+            case "orange":
+                return 5
+            default:
+                return 6
+            }
     }
     
     func setMade(_ product: ProductModel) {
@@ -170,6 +191,10 @@ final class ProductListViewModel: ObservableObject {
 
         }
         .store(in: &disposables)
-
+        
+        NotificationCenter.default.publisher(for: .reloadProducts).sink { _ in
+            self.load()
+        }
+        .store(in: &disposables)
     }
 }

@@ -34,6 +34,6 @@ extension AddProductCoordinator {
     }
     
     func makeSuggestView() -> SuggestCoordinator {
-        SuggestCoordinator(serviceLocator: serviceLocator, completion: viewModel.addSuggests)
+        SuggestCoordinator(list: list, serviceLocator: serviceLocator)
     }
 }

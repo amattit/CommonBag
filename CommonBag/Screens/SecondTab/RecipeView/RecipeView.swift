@@ -29,7 +29,7 @@ struct RecipeView: View {
                     .font(.caption)
                     .padding()
                 ForEach(viewModel.recipe.products ?? [], id: \.self) { product in
-                    UpcomingProductRowView(model: .init(id: product.id, title: product.title, count: product.count ?? ""))
+                    UpcomingProductRowView(model: .init(id: product.id, title: product.title, count: product.count ?? "", color: ""))
                         .padding(.horizontal)
                         .padding(.vertical, 4)
                         .padding(.bottom, product == viewModel.recipe.products?.last ? 100 : 0)

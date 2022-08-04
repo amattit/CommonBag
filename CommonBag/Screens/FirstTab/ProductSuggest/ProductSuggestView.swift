@@ -13,68 +13,194 @@ struct ProductSuggestView: View {
     
     
     var body: some View {
-        List {
-            TextField("товар или категория", text: $viewModel.search)
-            Button(action: viewModel.check) {
-                Text("Проверить")
+        NavigationView {
+            List {
+                ForEach(viewModel.selected) { model in
+                    SuggestRow(model: model, selected: $viewModel.selected)
+                }
             }
-            ForEach(viewModel.visible) { model in
-                SuggestRow(model: model, selected: $viewModel.selected)
+            .listStyle(.plain)
+            .searchable(text: $viewModel.search, prompt: Text("например, бакалея"), suggestions: {
+                if viewModel.visible.isEmpty {
+                    VStack {
+                        Text("Ничего не нашлось :(")
+                        Text("Чтобы добавить нажмите \"Найти\" на клавиатуре")
+                    }
+                } else {
+                    ForEach(viewModel.visible) { model in
+                        SearchProductSuggestRow(model: model, selected: $viewModel.selected)
+                    }
+                }
+            })
+            .onSubmit(of: .search) {
+//                print("****************")
+                self.viewModel.selected.append(DTO.SuggestRs(id: .init(), title: viewModel.search, category: "secondary", color: "white", count: 1))
+            }
+            .navigationTitle(Text("Список"))
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("Готово", action: viewModel.save)
+                }
             }
         }
-        .listStyle(.plain)
+    }
+}
+
+struct SearchProductSuggestRow: View {
+    let model: DTO.SuggestRs
+    @Binding var selected: [DTO.SuggestRs]
+    
+    init(model: DTO.SuggestRs, selected: Binding<[DTO.SuggestRs]>) {
+        if let model = selected.first(where: {
+            $0.wrappedValue.id == model.id
+        }) {
+            self.model = model.wrappedValue
+        } else {
+            self.model = model
+        }
+        self._selected = selected
+    }
+    
+    var body: some View {
+        HStack {
+            RoundedRectangle(cornerRadius: 3, style: .continuous)
+                .frame(width: 3)
+                .foregroundColor(color)
+            VStack {
+                HStack {
+                    Text(model.title)
+                        .padding(.horizontal)
+                        .padding(.vertical, 8)
+                        .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+                    Spacer()
+                    Button(action: {
+                        isSelected ? removeFromSelected() : addToSelected()
+                    }) {
+                        Text(isSelected ? "Удалить" : "Добавить")
+                            .padding(.horizontal, 8)
+                            .padding(.vertical, 4)
+                            .background(Color.primary.opacity(isSelected ? 0.3 : 0.1))
+                            .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+                    }
+                    .accentColor(.primary)
+                    .buttonStyle(.borderless)
+                }
+            }
+        }
+    }
+    
+    var isSelected: Bool {
+        selected.contains {
+            $0.id == model.id
+        }
+    }
+    
+    func addToSelected() {
+        selected.removeAll { $0.id == model.id }
+        selected.append(model)
+    }
+    
+    func removeFromSelected() {
+        selected.removeAll { $0.id == model.id }
+    }
+    
+    var color: Color {
+        switch model.color {
+        case "red":
+            return .red
+        case "green":
+            return .green
+        case "blue":
+            return .blue
+        case "yellow":
+            return .yellow
+        case "pink":
+            return .pink
+        case "orange":
+            return .orange
+        default:
+            return .secondary
+        }
     }
 }
 
 struct SuggestRow: View {
-//    let model: DTO.SuggestRs
     @State var model: DTO.SuggestRs
     @Binding var selected: [DTO.SuggestRs]
-    @State var isAdded = false
+    
+    init(model: DTO.SuggestRs, selected: Binding<[DTO.SuggestRs]>) {
+        if let model = selected.first(where: {
+            $0.wrappedValue.id == model.id
+        }) {
+            self._model = State(initialValue: model.wrappedValue)
+        } else {
+            self._model = State(initialValue: model)
+        }
+        self._selected = selected
+    }
+    
     var body: some View {
-        VStack {
-            HStack {
-                RoundedRectangle(cornerRadius: 3, style: .continuous)
-                    .frame(width: 3)
-                    .foregroundColor(color)
-                Text(model.title)
-                    .padding(.horizontal)
-                    .padding(.vertical, 8)
-                    .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
-                Spacer()
-                countView
-                
-            }
-            if isAdded {
+        HStack {
+            RoundedRectangle(cornerRadius: 3, style: .continuous)
+                .frame(width: 3)
+                .foregroundColor(color)
+            VStack {
                 HStack {
-                    ForEach(DTO.SuggestRs.MesureUnit.allCases) { mu in
-                        Button(action: {
-                            model.mesureUnit = mu
-                        }) {
-                            Text(mu.title)
-                                .padding(.horizontal)
+                    Text(model.title)
+                        .padding(.horizontal)
+                        .padding(.vertical, 8)
+                        .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+                    Spacer()
+                    countView
+                    
+                }
+                if isSelected {
+                    HStack {
+                        ForEach(DTO.SuggestRs.MesureUnit.allCases) { mu in
+                            Button(action: {
+                                if model.mesureUnit != mu {
+                                    model.mesureUnit = mu
+                                } else {
+                                    model.mesureUnit = nil
+                                }
+                                addToSelected()
+                            }) {
+                                Text(mu.title)
+                                    .padding(.horizontal)
+                            }
+                            .accentColor(model.mesureUnit == mu ? .white : .primary)
+                            .background(
+                                model.mesureUnit == mu ? Color.blue : .clear
+                            )
+                            .buttonStyle(.borderless)
+                            .clipShape(RoundedRectangle(cornerRadius: 4, style: .continuous))
                         }
-                        .accentColor(model.mesureUnit == mu ? .white : .primary)
-                        .background(
-                            model.mesureUnit == mu ? Color.blue : .clear
-                        )
-                        .buttonStyle(.borderless)
-                        .clipShape(RoundedRectangle(cornerRadius: 4, style: .continuous))
                     }
                 }
             }
         }
     }
     
+    var isSelected: Bool {
+        selected.contains {
+            $0.id == model.id
+        }
+    }
+    
     @ViewBuilder
     var countView: some View {
-        if isAdded == false {
+        if isSelected == false {
             Button(action: {
                 increment()
-                isAdded = true
             }) {
                 Text("Добавить")
+                    .padding(.horizontal, 8)
+                    .padding(.vertical, 4)
+                    .background(Color.primary.opacity(0.1))
+                    .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
             }
+            .accentColor(.primary)
+            .buttonStyle(.borderless)
         } else {
             Text(count)
             Stepper("", onIncrement: increment, onDecrement: decrement)
@@ -109,14 +235,12 @@ struct SuggestRow: View {
             model.count = count
             if count.rounded() == 0 {
                 model.count = nil
-                isAdded = false
                 removeFromSelected()
             } else {
                 addToSelected()
             }
         } else {
             model.count = nil
-            isAdded = false
             removeFromSelected()
         }
     }

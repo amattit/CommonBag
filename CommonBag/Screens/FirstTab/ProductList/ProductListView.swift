@@ -39,6 +39,7 @@ struct ProductListView: View {
                     .addAction {
                         viewModel.setMade(product)
                     }
+                    .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
                     .swipeActions {
                         Button(action: {
                             viewModel.delete(product)
