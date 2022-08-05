@@ -55,6 +55,8 @@
 		4B8F5096285FBE79003D4CDF /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8F5095285FBE79003D4CDF /* NetworkClient.swift */; };
 		4B8F5098285FCA7B003D4CDF /* DTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8F5097285FCA7B003D4CDF /* DTO.swift */; };
 		4B8F509B28604DF4003D4CDF /* ShareSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8F509A28604DF4003D4CDF /* ShareSheetView.swift */; };
+		4BB83EE5289D2D5F00FF0649 /* SuggestRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB83EE4289D2D5F00FF0649 /* SuggestRow.swift */; };
+		4BB83EE7289D2D6D00FF0649 /* SearchProductSuggestRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB83EE6289D2D6D00FF0649 /* SearchProductSuggestRow.swift */; };
 		4BBB37DD286F16C20022BE4C /* ErrorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BBB37DC286F16C20022BE4C /* ErrorModel.swift */; };
 		4BD3C5AD2885C23A00FC6E93 /* ProductSuggestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD3C5AC2885C23A00FC6E93 /* ProductSuggestViewModel.swift */; };
 		4BD3C5AF2885E19600FC6E93 /* SuggestCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD3C5AE2885E19600FC6E93 /* SuggestCoordinator.swift */; };
@@ -116,6 +118,8 @@
 		4B8F509A28604DF4003D4CDF /* ShareSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheetView.swift; sourceTree = "<group>"; };
 		4B8F509C28605568003D4CDF /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		4B8F509D2861D766003D4CDF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		4BB83EE4289D2D5F00FF0649 /* SuggestRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestRow.swift; sourceTree = "<group>"; };
+		4BB83EE6289D2D6D00FF0649 /* SearchProductSuggestRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchProductSuggestRow.swift; sourceTree = "<group>"; };
 		4BBB37DC286F16C20022BE4C /* ErrorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorModel.swift; sourceTree = "<group>"; };
 		4BD3C5AC2885C23A00FC6E93 /* ProductSuggestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductSuggestViewModel.swift; sourceTree = "<group>"; };
 		4BD3C5AE2885E19600FC6E93 /* SuggestCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestCoordinator.swift; sourceTree = "<group>"; };
@@ -142,6 +146,7 @@
 		4B2D1ED428638240007E6FDB /* ProductSuggest */ = {
 			isa = PBXGroup;
 			children = (
+				4BB83EE3289D2D5400FF0649 /* Components */,
 				4B2D1ED52863888F007E6FDB /* ProductSuggestView.swift */,
 				4BD3C5AC2885C23A00FC6E93 /* ProductSuggestViewModel.swift */,
 				4BD3C5AE2885E19600FC6E93 /* SuggestCoordinator.swift */,
@@ -419,6 +424,15 @@
 			path = Share;
 			sourceTree = "<group>";
 		};
+		4BB83EE3289D2D5400FF0649 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				4BB83EE4289D2D5F00FF0649 /* SuggestRow.swift */,
+				4BB83EE6289D2D6D00FF0649 /* SearchProductSuggestRow.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 		4BBB37DB286F16B40022BE4C /* Error */ = {
 			isa = PBXGroup;
 			children = (
@@ -568,6 +582,7 @@
 				4B8F5063285BD208003D4CDF /* ProductListCoordinator.swift in Sources */,
 				4B8F5094285FBDCC003D4CDF /* Products+API.swift in Sources */,
 				4B78072528650209005770C6 /* CategoryListView.swift in Sources */,
+				4BB83EE7289D2D6D00FF0649 /* SearchProductSuggestRow.swift in Sources */,
 				4BBB37DD286F16C20022BE4C /* ErrorModel.swift in Sources */,
 				4B8F507A285CA215003D4CDF /* MyListRow.swift in Sources */,
 				4B2D1ED62863888F007E6FDB /* ProductSuggestView.swift in Sources */,
@@ -580,6 +595,7 @@
 				4B7807202864EFD1005770C6 /* RecipesCategoryView.swift in Sources */,
 				4BF805A22868972100DA2719 /* SelectListView.swift in Sources */,
 				4B5AE913287746A200C2AC95 /* UserService.swift in Sources */,
+				4BB83EE5289D2D5F00FF0649 /* SuggestRow.swift in Sources */,
 				4B8F5073285C949A003D4CDF /* ListModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
